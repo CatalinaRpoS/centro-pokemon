@@ -10,9 +10,9 @@ export const NavBar: React.FC = () => {
             alt="Logo"
             width="30"
             height="30"
-            className="d-inline-block align-text-top"
+            className="img-fluid m-3"
           />
-          Bootstrap
+          <p className="h2">Centro Pokémon</p>
         </a>
       </div>
     </nav>
