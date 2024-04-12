@@ -1,7 +1,9 @@
+import { NavBar } from "./components/NavBar";
+
 export const App = () => {
   return (
     <>
-      <h1>Hola mundo</h1>
+      <NavBar />
     </>
   );
 };
