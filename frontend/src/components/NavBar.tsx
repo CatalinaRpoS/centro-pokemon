@@ -1,5 +1,6 @@
 import pokeball from "../assets/Pokeball.png";
 import account from "../assets/Account.png";
+import "../styles/styles.scss";
 
 export const NavBar: React.FC = () => {
   return (
@@ -10,7 +11,7 @@ export const NavBar: React.FC = () => {
         rel="stylesheet"
       />
       <div className="container-fluid">
-        <a className="navbar-brand" href="/entrenador">
+        <a className="navbar-brand" href="/">
           <img
             src={pokeball}
             alt="Logo de la página"
