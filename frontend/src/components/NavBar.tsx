@@ -10,7 +10,7 @@ export const NavBar: React.FC = () => {
         rel="stylesheet"
       />
       <div className="container-fluid">
-        <a className="navbar-brand" href="index.html">
+        <a className="navbar-brand" href="/entrenador">
           <img
             src={pokeball}
             alt="Logo de la página"

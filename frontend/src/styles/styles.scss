@@ -1,1 +1,70 @@
 @import "bootstrap/scss/bootstrap";
+
+$primary-color: #0c359e;
+$fonts: 1.5rem;
+
+.pokemon-type {
+  width: 3rem;
+  height: auto;
+}
+.pokemon-status {
+  width: 8rem;
+  height: auto;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.5rem;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.grid-container-trainer {
+  display: grid;
+  grid-gap: 3rem;
+  margin: 2rem;
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1399px) {
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  @media screen and (min-width: 1400px) {
+    grid-template-columns: 1fr 2fr 1fr;
+  }
+}
+
+.form-check {
+  margin-right: 20px;
+}
+
+.navbar-blue {
+  background-color: $primary-color;
+  display: flex;
+  height: 5rem;
+}
+.form-label {
+  font-size: $fonts;
+}
+.dv-btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.three-div h2 {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-primary {
+  background-color: $primary-color;
+  border-color: $primary-color;
+  width: 10rem;
+  font-size: $fonts;
+}
