@@ -1,6 +1,6 @@
 export const TableTurns = () => {
   return (
-    <table className="table table-striped">
+    <table className="table table-striped mt-5">
       <thead>
         <tr>
           <th scope="col">Turno</th>
