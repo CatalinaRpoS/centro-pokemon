@@ -3,6 +3,7 @@ interface PokemonCardProps {
   name: string;
   level: number;
   turn: number;
+  lifePoints: number;
   status: Array<string>;
   type: Array<string>;
 }
@@ -12,6 +13,7 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
   name,
   level,
   turn,
+  lifePoints,
   status,
   type,
 }) => {
@@ -42,6 +44,9 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
             ))}
           </div>
         </div>
+        <button className="btn btn-danger pokemon-turn rounded-pill mt-auto mb-2">
+          PV: {lifePoints}
+        </button>
         <button className="btn btn-primary pokemon-turn rounded-pill mt-auto">
           Turno {turn}
         </button>
