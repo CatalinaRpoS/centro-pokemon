@@ -27,9 +27,10 @@ export const VisualizePokemons = () => {
     <div className="grid-container-cards">
       <PokemonCard
         image={Pokemon1}
-        name={"Bulbasur"}
+        name={"Swadloon"}
         level={18}
         turn={7}
+        lifePoints={27}
         status={Pokemon1Status}
         type={Pokemon1Type}
       />
@@ -38,6 +39,7 @@ export const VisualizePokemons = () => {
         name={"Leafeon"}
         level={50}
         turn={13}
+        lifePoints={53}
         status={Pokemon2Status}
         type={Pokemon2Type}
       />
@@ -46,6 +48,7 @@ export const VisualizePokemons = () => {
         name={"Pikachu"}
         level={22}
         turn={22}
+        lifePoints={59}
         status={Pokemon3Status}
         type={Pokemon3Type}
       />
@@ -54,6 +57,7 @@ export const VisualizePokemons = () => {
         name={"Mewtwo"}
         level={33}
         turn={29}
+        lifePoints={71}
         status={Pokemon4Status}
         type={Pokemon4Type}
       />

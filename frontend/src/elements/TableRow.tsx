@@ -69,6 +69,7 @@ export const TableRow = () => {
             name={turnsList[selectedTurnIndex].name}
             level={turnsList[selectedTurnIndex].level}
             turn={turnsList[selectedTurnIndex].turno}
+            lifePoints={turnsList[selectedTurnIndex].pv}
             status={[Status1]}
             type={[Type1]}
           />
