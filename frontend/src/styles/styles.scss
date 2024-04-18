@@ -39,14 +39,11 @@ $fonts: 1.5rem;
     grid-template-columns: 1fr;
   }
 
-  // @media screen and (min-width: 768px) and (max-width: 1399px) {
-  @media screen and (min-width: 768px) and (max-width: 992px) {
-    grid-template-columns: 1fr 2fr;
-    grid-template-rows: 1fr 1fr;
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    grid-template-columns: 1fr 3fr;
   }
 
-  // @media screen and (min-width: 1400px) {
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 1024px) {
     grid-template-columns: 1fr 2fr 1fr;
   }
 }
@@ -74,7 +71,7 @@ $fonts: 1.5rem;
     grid-template-columns: 1fr;
   }
 
-  @media screen and (min-width: 769px) {
+  @media screen and (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
   }
 }

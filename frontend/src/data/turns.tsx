@@ -2,6 +2,7 @@ export const turns = [
   {
     turno: 1,
     name: "Squirtle",
+    level: 1,
     pv: 44,
     status: "PSN",
     trainer: "Misty",
@@ -9,6 +10,7 @@ export const turns = [
   {
     turno: 2,
     name: "Bulbasaur",
+    level: 13,
     pv: 45,
     status: "BRN PAR",
     trainer: "Gary Oak",
@@ -16,6 +18,7 @@ export const turns = [
   {
     turno: 3,
     name: "Pikachu",
+    level: 15,
     pv: 22,
     status: "BRN",
     trainer: "Ash Ketchum",
@@ -23,6 +26,7 @@ export const turns = [
   {
     turno: 4,
     name: "Butterfree",
+    level: 20,
     pv: 60,
     status: "PAR",
     trainer: "Ash Ketchum",
@@ -30,6 +34,7 @@ export const turns = [
   {
     turno: 5,
     name: "Beedrill",
+    level: 22,
     pv: 65,
     status: "FRZ",
     trainer: "Gary Oak",
@@ -37,6 +42,7 @@ export const turns = [
   {
     turno: 6,
     name: "Pidgeotto",
+    level: 33,
     pv: 63,
     status: "PSN",
     trainer: "Ash Ketchum",
@@ -44,6 +50,7 @@ export const turns = [
   {
     turno: 7,
     name: "Rattata",
+    level: 42,
     pv: 30,
     status: "BRN",
     trainer: "Misty",
@@ -51,6 +58,7 @@ export const turns = [
   {
     turno: 8,
     name: "Spearow",
+    level: 50,
     pv: 40,
     status: "-",
     trainer: "Brock",
@@ -58,6 +66,7 @@ export const turns = [
   {
     turno: 9,
     name: "Fearow",
+    level: 2,
     pv: 65,
     status: "SLEEP",
     trainer: "Ash Ketchum",
@@ -65,6 +74,7 @@ export const turns = [
   {
     turno: 10,
     name: "Arbok",
+    level: 24,
     pv: 60,
     status: "FRZ",
     trainer: "Jessie",
@@ -72,6 +82,7 @@ export const turns = [
   {
     turno: 11,
     name: "Pikachu",
+    level: 20,
     pv: 55,
     status: "PSN",
     trainer: "Ash Ketchum",
@@ -79,6 +90,7 @@ export const turns = [
   {
     turno: 12,
     name: "Raichu",
+    level: 90,
     pv: 70,
     status: "PAR",
     trainer: "Lt. Surge",
@@ -86,6 +98,7 @@ export const turns = [
   {
     turno: 13,
     name: "Sandshrew",
+    level: 89,
     pv: 50,
     status: "BRN",
     trainer: "Brock",
@@ -93,6 +106,7 @@ export const turns = [
   {
     turno: 14,
     name: "Sandslash",
+    level: 67,
     pv: 75,
     status: "SLEEP",
     trainer: "Ash Ketchum",
@@ -100,50 +114,9 @@ export const turns = [
   {
     turno: 15,
     name: "Nidoran",
+    level: 20,
     pv: 40,
     status: "-",
     trainer: "Gary Oak",
-  },
-  {
-    turno: 16,
-    name: "Nidorina",
-    pv: 55,
-    status: "FRZ",
-    trainer: "Ash Ketchum",
-  },
-  {
-    turno: 17,
-    name: "Nidoqueen",
-    pv: 90,
-    status: "PAR",
-    trainer: "Cynthia",
-  },
-  {
-    turno: 18,
-    name: "Nidoran",
-    pv: 40,
-    status: "BRN",
-    trainer: "Ash Ketchum",
-  },
-  {
-    turno: 19,
-    name: "Nidorino",
-    pv: 55,
-    status: "SLEEP",
-    trainer: "Brock",
-  },
-  {
-    turno: 20,
-    name: "Nidoking",
-    pv: 90,
-    status: "-",
-    trainer: "Ash Ketchum",
-  },
-  {
-    turno: 21,
-    name: "Charmander",
-    pv: 39,
-    status: "FRZ",
-    trainer: "Ash Ketchum",
   },
 ];
