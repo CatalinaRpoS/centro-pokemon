@@ -9,9 +9,9 @@ export const CheckStatus = () => {
   return (
     <div className="flex-container">
       {imagePath.map((path, index) => (
-        <div className="form-check" key={index}>
+        <div className="form-check flex-items" key={index}>
           <input
-            className="form-check-input"
+            className="form-check-input rounded-pill"
             type="checkbox"
             value=""
             id={`flexCheckDefault${index}`}

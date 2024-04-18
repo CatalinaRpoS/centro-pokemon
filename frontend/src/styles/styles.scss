@@ -8,6 +8,7 @@ $fonts: 1.5rem;
   width: 3rem;
   height: auto;
 }
+
 .pokemon-status {
   width: 8rem;
   height: auto;
@@ -18,7 +19,15 @@ $fonts: 1.5rem;
   flex-wrap: wrap;
   padding: 0.5rem;
   justify-content: center;
+  align-items: center;
   margin: 1rem 0;
+}
+
+.flex-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
 }
 
 .grid-container-trainer {
@@ -30,12 +39,14 @@ $fonts: 1.5rem;
     grid-template-columns: 1fr;
   }
 
-  @media screen and (min-width: 768px) and (max-width: 1399px) {
+  // @media screen and (min-width: 768px) and (max-width: 1399px) {
+  @media screen and (min-width: 768px) and (max-width: 992px) {
     grid-template-columns: 1fr 2fr;
     grid-template-rows: 1fr 1fr;
   }
 
-  @media screen and (min-width: 1400px) {
+  // @media screen and (min-width: 1400px) {
+  @media screen and (min-width: 1200px) {
     grid-template-columns: 1fr 2fr 1fr;
   }
 }
@@ -54,6 +65,20 @@ $fonts: 1.5rem;
   }
 }
 
+.grid-container-cards {
+  display: grid;
+  grid-gap: 1.5rem;
+  margin: 2rem;
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+
+  @media screen and (min-width: 769px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 .form-check {
   margin-right: 20px;
 }
@@ -66,6 +91,7 @@ $fonts: 1.5rem;
     height: 11rem;
   }
 }
+
 .form-label {
   font-size: $fonts;
 }
@@ -75,25 +101,43 @@ $fonts: 1.5rem;
   margin-top: 2rem;
 }
 
-.three-div h2 {
-  display: flex;
-  justify-content: center;
-}
-
 .btn-primary {
   background-color: $primary-color;
   border-color: $primary-color;
   width: 10rem;
   font-size: $fonts;
 }
+
 .table-striped {
   font-size: $fonts;
 }
+
 .btn-danger {
   font-size: $fonts;
 }
+
 .h1 {
   @media screen and (max-width: 768px) {
     display: none;
   }
+}
+
+.pokemon-card {
+  background-color: #f7f8fc;
+  border-color: #dee2e6;
+  border-radius: 20px;
+}
+
+.pokemon-turn {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.pokemon-title {
+  font-size: $fonts;
+}
+
+.blank-space {
+  margin-top: 2em;
 }

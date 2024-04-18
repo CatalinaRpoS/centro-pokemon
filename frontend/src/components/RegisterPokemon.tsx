@@ -1,5 +1,5 @@
 import "../styles/styles.scss";
-import { CheckType } from "../elements/checkType";
+import { CheckType } from "../elements/CheckType";
 import { CheckStatus } from "../elements/CheckStatus";
 
 export const RegisterPokemon = () => {
@@ -11,7 +11,7 @@ export const RegisterPokemon = () => {
         </label>
         <input
           type="text"
-          className="form-control"
+          className="form-control rounded-pill"
           id="pokemonName"
           maxLength={50}
           required
@@ -26,7 +26,7 @@ export const RegisterPokemon = () => {
           id="hp"
           min="0"
           max="255"
-          className="form-control"
+          className="form-control rounded-pill"
         ></input>
       </div>
       <div className="mb-4">
@@ -35,7 +35,7 @@ export const RegisterPokemon = () => {
         </label>
         <input
           type="number"
-          className="form-control"
+          className="form-control rounded-pill"
           id="level"
           min="0"
           max="100"
@@ -50,7 +50,7 @@ export const RegisterPokemon = () => {
       </label>
       <CheckStatus />
       <div className="dv-btn">
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary rounded-pill">
           Registrar
         </button>
       </div>
