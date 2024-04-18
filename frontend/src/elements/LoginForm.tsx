@@ -20,7 +20,7 @@ const LoginForm: React.FC<Props> = ({ onClose }) => {
           </label>
           <input
             type="email"
-            className="form-control"
+            className="form-control rounded-pill"
             id="email"
             aria-describedby="emailHelp"
           />
@@ -29,9 +29,16 @@ const LoginForm: React.FC<Props> = ({ onClose }) => {
           <label htmlFor="password" className="form-label">
             Contraseña
           </label>
-          <input type="password" className="form-control" id="password" />
+          <input
+            type="password"
+            className="form-control rounded-pill"
+            id="password"
+          />
         </div>
-        <button type="submit" className="btn btn-primary btn-block">
+        <button
+          type="submit"
+          className="btn btn-primary btn-block rounded-pill"
+        >
           Ingresar
         </button>
         <div className="mt-3 text-center">
