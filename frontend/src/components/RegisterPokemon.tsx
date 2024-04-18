@@ -1,6 +1,6 @@
 import "../styles/styles.scss";
-import { CheckType } from "../elements/CheckType";
 import { CheckStatus } from "../elements/CheckStatus";
+import { CheckType } from "../elements/checkType";
 
 export const RegisterPokemon = () => {
   return (

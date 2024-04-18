@@ -13,12 +13,7 @@ export const Nurse = () => {
           Modificar Agenda
         </button>
       </div>
-      <div className="grid-container-nurse">
-        <div className="item-pokemon"></div>
-        <div className="table-turnos">
-          <TableRow />
-        </div>
-      </div>
+      <TableRow />
     </>
   );
 };
