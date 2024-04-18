@@ -125,6 +125,15 @@ $fonts: 1.5rem;
   border-radius: 20px;
 }
 
+.pokemon-card-type {
+  width: 10%;
+  margin-top: -2em;
+}
+
+.pokemon-card-image {
+  width: 90%;
+}
+
 .pokemon-turn {
   display: flex;
   justify-content: center;

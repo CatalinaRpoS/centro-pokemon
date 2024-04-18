@@ -21,16 +21,15 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
         <h5 className="card-title">{name}</h5>
         <h5 className="card-title">Nivel {level}</h5>
       </div>
-      <img src={image} className="card-img" alt={image} />
-      <div className="card-img-overlay">
-        <div className="blank-space"></div>
-        <div className="d-flex align-items-start">
+      <div className="card-body d-flex">
+        <div className="d-flex flex-column pokemon-card-type">
           {type.map((path, index) => (
             <div key={index}>
               <img className="pokemon-type" src={path} alt={path} />
             </div>
           ))}
         </div>
+        <img src={image} className="card-img pokemon-card-image" alt={image} />
       </div>
 
       <div className="card-body d-flex flex-column">
