@@ -1,8 +1,16 @@
 import pokeball from "../assets/Pokeball.png";
 import account from "../assets/Account.png";
 import "../styles/styles.scss";
+import { useState } from "react";
+import LoginForm from "../elements/LoginForm";
 
 export const NavBar: React.FC = () => {
+  const [showLoginForm, setShowLoginForm] = useState(false);
+
+  const toggleLoginForm = () => {
+    setShowLoginForm(!showLoginForm);
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -31,7 +39,7 @@ export const NavBar: React.FC = () => {
           CENTRO POKÉMON
         </h1>
 
-        <button className="btn">
+        <button className="btn" onClick={toggleLoginForm}>
           <img
             src={account}
             alt="Logo de la página"
@@ -41,6 +49,8 @@ export const NavBar: React.FC = () => {
           />
         </button>
       </div>
+      {showLoginForm && <LoginForm onClose={toggleLoginForm} />}{" "}
+      {/* Mostrar el formulario de inicio de sesión si showLoginForm es true */}
     </nav>
   );
 };
