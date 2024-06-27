@@ -1,9 +1,7 @@
-import { NavBar } from "./components/NavBar";
+import { AppRouterProvider } from "./contexts/AppRouterProvider";
 
 export const App = () => {
   return (
-    <>
-      <NavBar />
-    </>
+    <AppRouterProvider/>
   );
 };
