@@ -1,13 +1,13 @@
-import { App } from "../App.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Nurse } from "../pages/Nurse.tsx";
 import { Trainer } from "../pages/Trainer.tsx";
 import { Register } from "../pages/Register.tsx";
+import { HomePage } from "../pages/HomePage.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <HomePage />,
   },
   {
     path: "/entrenador",

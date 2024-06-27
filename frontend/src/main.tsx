@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { AppRouterProvider } from "./contexts/AppRouterProvider";
+import { App } from "./App"
 
 import "./styles/styles.scss";
 // Import all of Bootstrap's JS
@@ -8,6 +8,6 @@ import "./styles/styles.scss";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <AppRouterProvider />
+  <App/>
   </React.StrictMode>
 );
