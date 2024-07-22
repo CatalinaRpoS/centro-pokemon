@@ -1,7 +1,17 @@
 import { NavBar } from "../components/NavBar";
+import  Carrusel  from "../components/carousels";
+import Info from "../components/info";
 
 export const HomePage = () => {
   return (
-    <NavBar/>
+    <div>
+      <NavBar/>
+      <Carrusel/>
+      <Info/>
+
+    </div>
+
+
+    
   );
 };
