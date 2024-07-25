@@ -1,46 +1,48 @@
-
-// Carrusel.js
 import React from 'react';
+import "../styles/HomePage.scss";
 import { Carousel } from 'react-bootstrap';
-import pokecenter from '../assets/PokeCenter.png';
-import EnfermeraJoy from '../assets/EnfermeraJoy.jpg';
-import EnfermeraJoy2 from '../assets/EnfermeraJoy2.jpg';
-
+import Entrenador from '../assets/entrenador.jpg';
+import pikachu from '../assets/pikachu-sentado.jpg';
+import Bulbasur from '../assets/pokemoBulbasur.jpg';
 
 const Carrusel = () => {
-      return (
+  return (
     <Carousel>
       <Carousel.Item>
         <img
           className="d-block w-100 img-responsive"
-          src= {pokecenter}
+          src={pikachu}
           alt="First slide"
+        
         />
-        <Carousel.Caption className='info'>
-          <h3>Bienvenido a tu Centro Pokemon</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        <Carousel.Caption >
+          <h1 className='carousels-title'> ¡Bienvenido al Centro Pokémon! </h1>
+          <p className='carousels-p'>Permítenos ayudarte a que tus Pokémon estén siempre en su mejor forma para tus próximas aventuras. ¡Estamos encantados de tenerte aquí!</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
         <img
           className="d-block w-100 img-responsive"
-          src= {EnfermeraJoy}
+          src={Entrenador}
           alt="Second slide"
+        
         />
-        <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <Carousel.Caption  >
+          <h1 className='carousels-title '> ¡Aquí nos preocupamos por tus Pokémon tanto como tú! </h1>
+          <p className='carousels-p'>Nuestro equipo está dedicado a ofrecerte el mejor servicio y cuidado para que tus aventuras nunca se detengan. ¡Nos alegra que estés aquí!</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
         <img
           className="d-block w-100 img-responsive"
-          src= {EnfermeraJoy2}
+          src={Bulbasur}
           alt="Third slide"
+          
         />
-        <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+        <Carousel.Caption >
+          <h1 className='carousels-title '> Tu viaje es importante para nosotros </h1>
+          <p className='carousels-p'>queremos asegurarnos de que tus Pokémon estén siempre listos para cualquier desafío. ¡Gracias por elegirnos!
+          </p>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
