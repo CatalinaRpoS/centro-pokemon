@@ -1,7 +1,8 @@
-import { NavBar } from "../components/NavBar";
-import { TableRow } from "../elements/TableRow";
+import React from "react";
+import NavBar from "@components/navbar";
+import { TableRow } from "@elements/table-row";
 
-export const Nurse = () => {
+const Nurse: React.FC = () => {
   return (
     <>
       <NavBar />
@@ -17,3 +18,5 @@ export const Nurse = () => {
     </>
   );
 };
+
+export default Nurse;
