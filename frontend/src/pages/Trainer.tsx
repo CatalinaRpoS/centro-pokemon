@@ -1,10 +1,11 @@
-import { NavBar } from "../components/NavBar";
-import { RegisterPokemon } from "../components/RegisterPokemon";
-import { VisualizePokemons } from "../components/VisualizePokemons";
-import { TableTurns } from "../elements/tableTurns";
-import "../styles/styles.scss";
+import React from "react";
+import NavBar from "@components/navbar";
+import RegisterPokemon from "@components/register-pokemon";
+import VisualizePokemon from "@components/visualize-pokemon";
+import TableTurn from "@elements/table-turn";
+import "@styles/styles.scss";
 
-export const Trainer = () => {
+const Trainer: React.FC = () => {
   return (
     <>
       <NavBar />
@@ -12,11 +13,11 @@ export const Trainer = () => {
       <div className="grid-container-trainer">
         <div className="item1">
           <h2 className="text-center">Turno Actual</h2>
-          <TableTurns />
+          <TableTurn />
         </div>
         <div className="item2">
           <h2 className="text-center">Mis Pokémones</h2>
-          <VisualizePokemons />
+          <VisualizePokemon />
         </div>
         <div className="item3">
           <h2 className="text-center">Registra tu Pokémon</h2>
@@ -26,3 +27,5 @@ export const Trainer = () => {
     </>
   );
 };
+
+export default Trainer;
