@@ -1,40 +1,36 @@
 import React, { useState } from "react";
+import { FaTimes } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 import "@styles/loginform.scss";
-import users from "@data/users"; // Lista de usuarios para maquetado.
+import users from "@mocks/users"; // Lista de usuarios para maquetado.
 import { LoginFormProps } from "./types";
+import paths from '@config/paths';
 
 const LoginForm: React.FC<LoginFormProps> = ({ onClose }: LoginFormProps) => {
-  // Navegacion
   const navigate = useNavigate();
   const handleRegisterClick = () => {
-    navigate("/registro");
+    navigate(paths.register);
   };
 
-  // Verificación de datos ingresados
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [userRole, setUserRole] = useState<string | null>(null);
   const [error, setError] = useState("");
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Buscar el usuario en la lista de usuarios
     const user = users.find(
       (user) => user.email === email && user.password === password
     );
 
     if (user) {
-      // Si se encuentra el usuario, redirigir basado en el rol
-      if (user.role === "entrenador") {
-        navigate("/entrenador");
-      } else if (user.role === "enfermera") {
-        navigate("/enfermera");
+      if (user.role === "trainer") {
+        navigate(paths.trainer);
+      } else if (user.role === "nurse") {
+        navigate(paths.nurse);
       }
-      onClose(); // Cerrar el popup del login
+      onClose();
     } else {
-      // Si no se encuentra el usuario, mostrar un mensaje de error
       setError("Email o contraseña incorrectos.");
     }
   };
@@ -43,14 +39,24 @@ const LoginForm: React.FC<LoginFormProps> = ({ onClose }: LoginFormProps) => {
     <div className="modal-bg">
       <div className="modal-content">
         <button className="close-btn" onClick={onClose}>
-          Cerrar
+          <FaTimes />
         </button>
-        <h2 className="text-center mb-4">Inicia Sesión</h2>
+        <h1 className="text-center mt-4 mb-3">Bienvenido al centro Pokémon</h1>
         {error && <p className="text-danger text-center">{error}</p>}
+        <div className="d-flex align-items-center same-font-size mb-2">
+          <p className="mb-0">¿No tienes una cuenta?</p>
+          <button
+            type="button"
+            className="btn btn-link same-font-size"
+            onClick={handleRegisterClick}
+          >
+            Registrate aquí
+          </button>
+        </div>
         <form onSubmit={handleLogin}>
           <div className="mb-3">
             <label htmlFor="email" className="form-label">
-              Email
+              Correo electrónico
             </label>
             <input
               type="email"
@@ -72,26 +78,19 @@ const LoginForm: React.FC<LoginFormProps> = ({ onClose }: LoginFormProps) => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+          <div className="d-flex justify-content-end mb-3 same-font-size">
+            <button type="button" className="btn btn-link">
+              Olvidé mi contraseña
+            </button>
+          </div>
           <button
             type="submit"
             className="btn btn-primary"
             style={{ width: "100%", display: "block", margin: "0 auto" }}
           >
-            Ingresar
+            Iniciar sesión
           </button>
         </form>
-        <div className="mt-3 text-center">
-          <button
-            type="button"
-            className="btn btn-link"
-            onClick={handleRegisterClick}
-          >
-            Registro
-          </button>
-          <button type="button" className="btn btn-link">
-            Olvidé mi contraseña
-          </button>
-        </div>
       </div>
     </div>
   );

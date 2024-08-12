@@ -1,13 +1,26 @@
 import React, { useState } from "react";
 import { pokeball, account } from "@assets/variety";
+import { useNavigate } from "react-router-dom";
 import "@styles/styles.scss";
 import { LoginForm } from "@components/loginform";
+import paths from "@config/paths";
 
 const NavBar: React.FC = () => {
+  const navigate = useNavigate();
   const [showLoginForm, setShowLoginForm] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleLoginForm = () => {
     setShowLoginForm(!showLoginForm);
+    setDropdownOpen(false);
+  };
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
+  const navigateToRegister = () => {
+    navigate(paths.register);
   };
 
   return (
@@ -18,7 +31,7 @@ const NavBar: React.FC = () => {
         rel="stylesheet"
       />
       <div className="container-fluid">
-        <a className="navbar-brand" href="/">
+        <a className="navbar-brand" href={paths.root}>
           <img
             src={pokeball}
             alt="Logo de la página"
@@ -38,15 +51,35 @@ const NavBar: React.FC = () => {
           CENTRO POKÉMON
         </h1>
 
-        <button className="btn" onClick={toggleLoginForm}>
-          <img
-            src={account}
-            alt="Logo de la página"
-            width="40"
-            height="40"
-            className="d-inline-block align-top"
-          />
-        </button>
+        <div className={`dropdown ${dropdownOpen ? 'show' : ''}`}>
+          <button
+            className="btn btn-secondary dropdown-toggle"
+            type="button"
+            onClick={toggleDropdown}
+            aria-expanded={dropdownOpen}
+          >
+            <img
+              src={account}
+              alt="Logo de la página"
+              width="40"
+              height="40"
+              className="d-inline-block align-top"
+            />
+          </button>
+          <ul className="dropdown-menu">
+            <li>
+              <button className="dropdown-item" type="button" onClick={toggleLoginForm}>
+                Inicia sesión
+              </button>
+            </li>
+            <hr />
+            <li>
+              <button className="dropdown-item" type="button" onClick={navigateToRegister}>
+                Registrarse
+              </button>
+            </li>
+          </ul>
+        </div>
       </div>
       {showLoginForm && <LoginForm onClose={toggleLoginForm} />}{" "}
       {/* Mostrar el formulario de inicio de sesión si showLoginForm es true */}

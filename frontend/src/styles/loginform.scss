@@ -13,12 +13,26 @@
 
 .modal-content {
   background-color: white;
-  padding: 20px;
+  padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 50%;
-
+  width: 60%;
+  height: 90%;
   justify-content: center;
+}
+
+@media (max-width: 1000px) {
+  .modal-content {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .modal-content {
+    padding: 0.5rem;
+    height: 95%;
+    width: 80%;
+  }
 }
 
 .close-btn {
@@ -28,4 +42,24 @@
   background: none;
   border: none;
   cursor: pointer;
+}
+
+.form-label {
+  font-size: 1.3rem;
+}
+
+.form-control {
+  height: 4rem;
+}
+
+.same-font-size {
+  font-size: 1rem;
+}
+
+.btn-primary {
+  font-size: 1.3rem;
+}
+
+.text-danger {
+  font-size: 1.2rem;
 }

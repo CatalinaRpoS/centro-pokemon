@@ -1,10 +1,7 @@
-export interface Turn {
-    turno: number;
-    name: string;
-    level: number;
-    pv: number;
-    status: string;
-    trainer: string;
+import { Pokemon } from "src/types";
+
+export interface TableRowProps{
+    pokemones: Array<Pokemon>;
 }
 
 export interface IDragResult {

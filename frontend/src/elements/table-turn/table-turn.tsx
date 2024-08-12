@@ -1,8 +1,11 @@
 import React from "react";
+import { TableTurnProps } from "./types";
 
-const TableTurn: React.FC = () => {
+const TableTurn: React.FC<TableTurnProps> = ({ pokemones }) => {
+  const firstFivePokemons = pokemones.slice(0, 5);
+
   return (
-    <table className="table table-striped mt-5 text-center">
+    <table className="table table-striped mt-5 mb-5 text-center">
       <thead>
         <tr>
           <th scope="col">Turno</th>
@@ -10,30 +13,12 @@ const TableTurn: React.FC = () => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Pikachu</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Charmander</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Raichu</td>
-        </tr>
-        <tr>
-          <th scope="row">4</th>
-          <td>Caterpie</td>
-        </tr>
-        <tr>
-          <th scope="row">5</th>
-          <td>Squirtie</td>
-        </tr>
-        <tr>
-          <th scope="row">6</th>
-          <td>Pikachu</td>
-        </tr>
+      {firstFivePokemons.map((pokemon) => (
+          <tr key={pokemon.turn}>
+            <th scope="row">{pokemon.turn}</th>
+            <td>{pokemon.name}</td>
+          </tr>
+      ))}
       </tbody>
     </table>
   );

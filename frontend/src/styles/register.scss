@@ -1,0 +1,23 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 6rem;
+    height: 100vh;
+}
+
+.form-control {
+   height: 3.5rem;
+   width: 100%;
+   margin-bottom: 1rem;
+}
+
+.btn-primary {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.password {
+    margin-bottom: 0;
+}

@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
-import { turns } from "@data/turns";
 import { PokemonCard } from "@elements/pokemon-card";
-import { swadloon } from "@assets/pokemon";
-import { status1 } from "@assets/status";
-import { type1 } from "@assets/types";
-import { Turn, IDragResult } from "./types";
+import { TableRowProps, IDragResult } from "./types";
+import { Pokemon, Status } from "src/types";
+import "@styles/styles.scss";
 
-const TableRow: React.FC = () => {
-  const [turnsList, setTurnsList] = useState<Turn[]>(turns);
+const TableRow: React.FC<TableRowProps> = ({ pokemones }) => {
+  const [turnsList, setTurnsList] = useState<Pokemon[]>(pokemones);
   const [selectedTurnIndex, setSelectedTurnIndex] = useState<number | null>(
     null
   );
@@ -22,8 +20,8 @@ const TableRow: React.FC = () => {
     const [removed] = newTurnsList.splice(source.index, 1);
     newTurnsList.splice(destination.index, 0, removed);
 
-    newTurnsList.forEach((turn, index) => {
-      turn.turno = index + 1;
+    newTurnsList.forEach((pokemon, index) => {
+      pokemon.turn = index + 1;
     });
 
     setTurnsList(newTurnsList);
@@ -47,19 +45,37 @@ const TableRow: React.FC = () => {
     };
   }, []);
 
+  const getPokemonByTurn = (turno: number | string) => {
+    return turnsList.find((pokemon: Pokemon) => pokemon.turn === turno);
+  };
+
+  const selectedPokemon = selectedTurnIndex !== null ? getPokemonByTurn(selectedTurnIndex) : null;
+
+  const removeFirstPokemon = () => {
+    setTurnsList(prevTurnsList => {
+      const updatedTurnsList = prevTurnsList.slice(1).map((turn, index) => ({
+        ...turn,
+        turn: index + 1
+      }));
+      return updatedTurnsList;
+    });
+  };
+
   return (
+    <>
+    <div className="button-container">
+      <button 
+        className="btn btn-primary btn-md"
+        type="button"
+        onClick={() => removeFirstPokemon()}
+      >
+        Atender siguiente turno
+      </button>
+    </div>
     <div className="grid-container-nurse">
       <div className="item-pokemon mt-3" ref={cardRef}>
-        {selectedTurnIndex !== null && (
-          <PokemonCard
-            image={swadloon}
-            name={turnsList[selectedTurnIndex].name}
-            level={turnsList[selectedTurnIndex].level}
-            turn={turnsList[selectedTurnIndex].turno}
-            lifePoints={turnsList[selectedTurnIndex].pv}
-            status={[status1]}
-            type={[type1]}
-          />
+        {selectedPokemon && (
+          <PokemonCard pokemon={selectedPokemon}/>
         )}
       </div>
       <div className="table-turnos mt-3">
@@ -82,10 +98,10 @@ const TableRow: React.FC = () => {
                   {...droppableProvider.droppableProps}
                   ref={droppableProvider.innerRef}
                 >
-                  {turnsList.map((turn, index) => (
+                  {turnsList.map((pokemon, index) => (
                     <Draggable
-                      key={turn.turno}
-                      draggableId={turn.turno.toString()}
+                      key={pokemon.turn}
+                      draggableId={pokemon.turn.toString()}
                       index={index}
                     >
                       {(draggableProvider) => (
@@ -95,17 +111,17 @@ const TableRow: React.FC = () => {
                           ref={draggableProvider.innerRef}
                           className="tasks-item"
                         >
-                          <td>{turn.turno}</td>
-                          <td>{turn.name}</td>
-                          <td>{turn.level}</td>
-                          <td>{turn.pv}</td>
-                          <td>{turn.status}</td>
-                          <td>{turn.trainer}</td>
+                          <td>{pokemon.turn}</td>
+                          <td>{pokemon.name}</td>
+                          <td>{pokemon.level}</td>
+                          <td>{pokemon.lifePoints}</td>
+                          <td>{pokemon.status.map((s: Status) => s.name).join(' ')}</td>
+                          <td>{pokemon.trainer}</td>
                           <td>
                             <button
-                              className="btn btn-primary m-3"
+                              className="btn btn-primary btn-sm"
                               type="button"
-                              onClick={() => handleDetailsClick(index)}
+                              onClick={() => handleDetailsClick(pokemon.turn)}
                             >
                               Detalles
                             </button>
@@ -122,6 +138,7 @@ const TableRow: React.FC = () => {
         </DragDropContext>
       </div>
     </div>
+    </>
   );
 };
 
