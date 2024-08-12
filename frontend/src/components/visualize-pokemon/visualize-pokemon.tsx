@@ -1,6 +1,7 @@
 import React from "react";
 import { PokemonCard } from "@elements/pokemon-card";
 import { VisualizePokemonProps } from "./types";
+import "@styles/styles.scss";
 
 const VisualizePokemon: React.FC<VisualizePokemonProps> = ({ pokemones }) => {
   return (

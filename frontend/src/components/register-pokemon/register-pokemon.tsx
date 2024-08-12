@@ -89,6 +89,10 @@ const RegisterPokemon: React.FC<RegisterPokemonProps> = ({ types, status }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (formData.type.length > 2) {
+      alert("Solo puedes seleccionar un máximo de 2 tipos.");
+      return;
+    }
     resetForm();
   };
 
@@ -144,6 +148,7 @@ const RegisterPokemon: React.FC<RegisterPokemonProps> = ({ types, status }) => {
       <label htmlFor="level" className="form-label">
         Tipo Pokémon
       </label>
+      <p>Selecciona máximo 2 tipos</p>
       <div className="flex-container">
         {types.map((path, index) => (
           <div className="form-check flex-items" key={index}>

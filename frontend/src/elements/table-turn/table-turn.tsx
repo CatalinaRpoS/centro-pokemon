@@ -5,7 +5,7 @@ const TableTurn: React.FC<TableTurnProps> = ({ pokemones }) => {
   const firstFivePokemons = pokemones.slice(0, 5);
 
   return (
-    <table className="table table-striped mt-5 mb-5 text-center">
+    <table className="table table-striped mt-2 mb-5 text-center">
       <thead>
         <tr>
           <th scope="col">Turno</th>

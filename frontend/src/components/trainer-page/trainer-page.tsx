@@ -13,7 +13,7 @@ const Trainer: React.FC = () => {
       <NavBar />
       <div className="grid-container-trainer">
         <div className="item1">
-          <h2 className="text-center">Turno actual</h2>
+          <h2 className="text-center">Turnos</h2>
           <TableTurn pokemones={pokemones} />
           <h2 className="text-center">Registra tu Pokémon</h2>
           <RegisterPokemon types={types} status={status}/>

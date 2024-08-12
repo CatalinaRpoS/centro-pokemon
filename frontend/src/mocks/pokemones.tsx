@@ -1,8 +1,6 @@
 import { pikachu, mewtwo, swadloon, leafeon } from "@assets/pokemon";
 import { 
-    type1, type2, type3, type4, type5, type6, type7, type8, 
-    type9, type10, type11, type12, type13, type14, type15, type16, 
-    type17, type18 
+    type1, type2, type6, type14, type15, type18 
 } from "@assets/types";
 import { Pokemon } from "../types";
 import status from "./status";
@@ -16,7 +14,7 @@ const pokemones: Array<Pokemon> = [
     turn:1,
     lifePoints:27,
     status: [status[0]],
-    type:[type14, type2, type3, type18, type15]
+    type:[type14, type2]
   },
   {
     image:leafeon,
@@ -26,8 +24,7 @@ const pokemones: Array<Pokemon> = [
     turn:2,
     lifePoints:53,
     status:[status[4], status[2]],
-    type:[type1, type2, type13, type14, type15, type16, 
-      type17, type18]
+    type:[type1]
   },
   {
     image:pikachu,
@@ -47,9 +44,7 @@ const pokemones: Array<Pokemon> = [
     turn:4,
     lifePoints:71,
     status:[status[0], status[1], status[2], status[3], status[4]],
-    type:[type1, type2, type3, type4, type5, type6, type7, type8, 
-      type9, type10, type11, type12, type13, type14, type15, type16, 
-      type17, type18]
+    type:[type18]
   },
   {
     image: swadloon,
@@ -59,7 +54,7 @@ const pokemones: Array<Pokemon> = [
     turn:5,
     lifePoints:13,
     status: [status[0], status[1], status[3], status[4]],
-    type:[type14, type2, type3, type18, type15]
+    type:[type14, type15]
   },
 ];
 

@@ -1,0 +1,47 @@
+.pokemon-card-type{
+    padding: 0;
+}
+
+.pokemon-turn {
+    width: 50%
+}
+
+.pokemon-lifePoint {
+    width: 50%;
+}
+
+.info {
+    color: white;
+    font-size: 1.2rem;
+    text-align: center;
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    background: linear-gradient(to right, #074173 50%, #1679AB 50%); // Gradiente lineal
+    border-bottom-left-radius: 1rem; // Esquina inferior izquierda redondeada
+    border-bottom-right-radius: 1rem;
+}
+.pokemon-card-image {
+    max-width: 12rem;
+    max-height: 12rem;
+    padding: 0;
+  }
+
+.card.pokemon-card{
+    width: 18rem;
+}
+
+.bottom {
+    padding: 0;
+    margin: 0;
+}
+
+.flex-container {
+    margin: 0;
+}
+
+.body {
+    padding-bottom: 0;
+}

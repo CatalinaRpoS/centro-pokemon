@@ -1,25 +1,27 @@
 import React from "react";
 import { PokemonCardProps } from "./types";
+import "@styles/pokemonCard.scss";
 
 const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
   return (
     <div className="card pokemon-card">
       <div className="card-body d-flex justify-content-between pokemon-title">
         <h5 className="card-title">{pokemon.name}</h5>
-        <h5 className="card-title">Nivel {pokemon.level}</h5>
+        <h5 className="card-title">Turno {pokemon.turn}</h5>
       </div>
-      <div className="card-body d-flex">
-        <div className="d-flex flex-column pokemon-card-type">
+      <div className="card-body body">
+        <div className="pokemon-card-type d-flex">
           {pokemon.type.map((path, index) => (
             <div key={index}>
               <img className="pokemon-type" src={path} alt={path} />
             </div>
           ))}
         </div>
-        <img src={pokemon.image} className="card-img pokemon-card-image" alt={pokemon.name} />
+        <div className="d-flex justify-content-center">
+          <img src={pokemon.image} className="card-img pokemon-card-image" alt={pokemon.name} />
+        </div>
       </div>
-
-      <div className="card-body d-flex flex-column">
+      <div className="card-body d-flex flex-column bottom">
         <div className="flex-grow-1">
           <div className="flex-container">
             {pokemon.status.map((path, index) => (
@@ -29,12 +31,14 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
             ))}
           </div>
         </div>
-        <button className="btn btn-danger pokemon-turn rounded-pill mt-auto mb-2">
-          PV: {pokemon.lifePoints}
-        </button>
-        <button className="btn btn-primary pokemon-turn rounded-pill mt-auto">
-          Turno {pokemon.turn}
-        </button>
+        <div className="d-flex info">
+          <div className="pokemon-lifePoint">
+                PV: {pokemon.lifePoints}
+          </div>
+          <div className="pokemon-turn">
+                Nivel {pokemon.level}
+          </div>
+        </div>
       </div>
     </div>
   );

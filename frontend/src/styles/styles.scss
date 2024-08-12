@@ -33,18 +33,20 @@ $fonts: 1.5rem;
 .grid-container-trainer {
   display: grid;
   grid-gap: 3rem;
-  margin: 2rem;
 
   @media screen and (max-width: 768px) {
     grid-template-columns: 1fr;
+    margin: 0.5rem;
   }
 
   @media screen and (min-width: 768px) and (max-width: 1024px) {
     grid-template-columns: 1fr 3fr;
+    margin: 1rem;
   }
 
   @media screen and (min-width: 1024px) {
     grid-template-columns: 1fr 2fr;
+    margin: 2rem;
   }
 }
 
@@ -64,14 +66,14 @@ $fonts: 1.5rem;
 
 .grid-container-cards {
   display: grid;
-  grid-gap: 1.5rem;
-  margin: 2rem;
+  grid-gap: 1rem;
+  margin: 0.5rem;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 650px) {
     grid-template-columns: 1fr;
   }
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 650px) {
     grid-template-columns: 1fr 1fr;
   }
 }
