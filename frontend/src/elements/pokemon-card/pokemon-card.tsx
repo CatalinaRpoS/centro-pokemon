@@ -33,7 +33,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
         </div>
         <div className="d-flex info">
           <div className="pokemon-lifePoint">
-                PV: {pokemon.lifePoints}
+                PV {pokemon.lifePoints}
           </div>
           <div className="pokemon-turn">
                 Nivel {pokemon.level}
