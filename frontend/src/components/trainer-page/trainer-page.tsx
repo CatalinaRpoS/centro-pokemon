@@ -4,6 +4,8 @@ import VisualizePokemon from "@components/visualize-pokemon";
 import TableTurn from "@elements/table-turn";
 import "@styles/styles.scss";
 import pokemones from "@mocks/pokemones";
+import types from "@mocks/types";
+import status from "@mocks/status";
 
 const Trainer: React.FC = () => {
   return (
@@ -14,7 +16,7 @@ const Trainer: React.FC = () => {
           <h2 className="text-center">Turno actual</h2>
           <TableTurn pokemones={pokemones} />
           <h2 className="text-center">Registra tu Pokémon</h2>
-          <RegisterPokemon />
+          <RegisterPokemon types={types} status={status}/>
         </div>
         <div className="item2">
           <h2 className="text-center">Mis Pokémones</h2>
