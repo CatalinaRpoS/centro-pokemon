@@ -29,6 +29,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onClose }: LoginFormProps) => {
       } else if (user.role === "nurse") {
         navigate(paths.nurse);
       }
+      localStorage.setItem("role", user.role);
       onClose();
     } else {
       setError("Email o contraseña incorrectos.");
@@ -37,22 +38,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ onClose }: LoginFormProps) => {
 
   return (
     <div className="modal-bg">
-      <div className="modal-content">
+      <div className="modal-content px-5">
         <button className="close-btn" onClick={onClose}>
           <FaTimes />
         </button>
-        <h1 className="text-center mt-4 mb-3">Bienvenido al centro Pokémon</h1>
+        <h1 className="text-center mt-4 mb-3">Bienvenido al Centro Pokémon</h1>
         {error && <p className="text-danger text-center">{error}</p>}
-        <div className="d-flex align-items-center same-font-size mb-2">
-          <p className="mb-0">¿No tienes una cuenta?</p>
-          <button
-            type="button"
-            className="btn btn-link same-font-size"
-            onClick={handleRegisterClick}
-          >
-            Registrate aquí
-          </button>
-        </div>
         <form onSubmit={handleLogin}>
           <div className="mb-3">
             <label htmlFor="email" className="form-label">
@@ -60,7 +51,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onClose }: LoginFormProps) => {
             </label>
             <input
               type="email"
-              className="form-control"
+              className="form-control rounded-pill"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -72,20 +63,25 @@ const LoginForm: React.FC<LoginFormProps> = ({ onClose }: LoginFormProps) => {
             </label>
             <input
               type="password"
-              className="form-control"
+              className="form-control rounded-pill"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <div className="d-flex justify-content-end mb-3 same-font-size">
-            <button type="button" className="btn btn-link">
-              Olvidé mi contraseña
-            </button>
-          </div>
+          <div className="d-flex align-items-center same-font-size mb-3">
+          <p className="mb-0">¿No tienes una cuenta?</p>
+          <button
+            type="button"
+            className="btn btn-link same-font-size link-style"
+            onClick={handleRegisterClick}
+          >
+            Registrate aquí
+          </button>
+        </div>
           <button
             type="submit"
-            className="btn btn-primary"
+            className="btn btn-primary rounded-pill"
             style={{ width: "100%", display: "block", margin: "0 auto" }}
           >
             Iniciar sesión

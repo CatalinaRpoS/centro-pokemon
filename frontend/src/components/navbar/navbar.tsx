@@ -10,6 +10,9 @@ const NavBar: React.FC = () => {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
+  const userRole = localStorage.getItem('role');
+  const isLoggedIn = userRole !== null;
+
   const toggleLoginForm = () => {
     setShowLoginForm(!showLoginForm);
     setDropdownOpen(false);
@@ -21,6 +24,19 @@ const NavBar: React.FC = () => {
 
   const navigateToRegister = () => {
     navigate(paths.register);
+  };
+
+  const handleLogout = () => {
+      localStorage.removeItem('role');
+      navigate(paths.root);
+  };
+
+  const navigateToRoleSection = () => {
+    if (userRole === 'nurse') {
+      navigate(paths.nurse);
+    } else if (userRole === 'trainer') {
+      navigate(paths.trainer);
+    }
   };
 
   return (
@@ -65,25 +81,39 @@ const NavBar: React.FC = () => {
             />
           </button>
           <ul className="dropdown-menu">
-            <li>
-              <button
-                className="dropdown-item"
-                type="button"
-                onClick={toggleLoginForm}
-              >
-                Inicia sesión
-              </button>
-            </li>
-            <hr />
-            <li>
-              <button
-                className="dropdown-item"
-                type="button"
-                onClick={navigateToRegister}
-              >
-                Registrarse
-              </button>
-            </li>
+          {isLoggedIn ? (
+              <>
+                <li>
+                  <button className="dropdown-item" onClick={navigateToRoleSection}>
+                    {userRole === 'nurse' ? 'Sección de enfermera' : 'Sección de entrenador'}
+                  </button>
+                </li>
+                <li>
+                  <hr className="dropdown-divider" />
+                </li>
+                <li>
+                  <button className="dropdown-item" onClick={handleLogout}>
+                    Cerrar sesión
+                  </button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <button className="dropdown-item" onClick={toggleLoginForm}>
+                    Iniciar sesión
+                  </button>
+                </li>
+                <li>
+                  <hr className="dropdown-divider" />
+                </li>
+                <li>
+                  <button className="dropdown-item" onClick={navigateToRegister}>
+                    Registrarse
+                  </button>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

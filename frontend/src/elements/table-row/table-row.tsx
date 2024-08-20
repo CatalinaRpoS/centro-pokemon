@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import { PokemonCard } from "@elements/pokemon-card";
 import { TableRowProps, IDragResult } from "./types";
@@ -31,20 +31,6 @@ const TableRow: React.FC<TableRowProps> = ({ pokemones }) => {
     setSelectedTurnIndex(index);
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (cardRef.current && !cardRef.current.contains(event.target as Node)) {
-        setSelectedTurnIndex(null);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
   const getPokemonByTurn = (turno: number | string) => {
     return turnsList.find((pokemon: Pokemon) => pokemon.turn === turno);
   };
@@ -65,7 +51,7 @@ const TableRow: React.FC<TableRowProps> = ({ pokemones }) => {
     <>
     <div className="button-container">
       <button 
-        className="btn btn-primary btn-md"
+        className="btn btn-primary btn-md justify-content-center rounded-pill"
         type="button"
         onClick={() => removeFirstPokemon()}
       >
@@ -73,7 +59,7 @@ const TableRow: React.FC<TableRowProps> = ({ pokemones }) => {
       </button>
     </div>
     <div className="grid-container-nurse">
-      <div className="item-pokemon mt-3" ref={cardRef}>
+      <div className="d-flex justify-content-center item-pokemon mt-3" ref={cardRef}>
         {selectedPokemon && (
           <PokemonCard pokemon={selectedPokemon}/>
         )}
@@ -115,11 +101,11 @@ const TableRow: React.FC<TableRowProps> = ({ pokemones }) => {
                           <td>{pokemon.name}</td>
                           <td>{pokemon.level}</td>
                           <td>{pokemon.lifePoints}</td>
-                          <td>{pokemon.status.map((s: Status) => s.name).join(' ')}</td>
+                          <td>{pokemon.status.map((s: Status) => s.name).join(', ')}</td>
                           <td>{pokemon.trainer}</td>
                           <td>
                             <button
-                              className="btn btn-primary btn-sm"
+                              className="btn btn-primary btn-sm rounded-pill"
                               type="button"
                               onClick={() => handleDetailsClick(pokemon.turn)}
                             >

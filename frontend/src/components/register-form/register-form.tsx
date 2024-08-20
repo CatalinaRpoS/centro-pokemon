@@ -81,7 +81,7 @@ const RegisterForm = () => {
             </label>
             <input
               type="text"
-              className="form-control"
+              className="form-control rounded-pill"
               id="firstName"
               name="firstName"
               value={formData.firstName}
@@ -95,7 +95,7 @@ const RegisterForm = () => {
             </label>
             <input
               type="text"
-              className="form-control"
+              className="form-control rounded-pill"
               id="lastName"
               name="lastName"
               value={formData.lastName}
@@ -109,7 +109,7 @@ const RegisterForm = () => {
             </label>
             <input
               type="email"
-              className="form-control"
+              className="form-control rounded-pill"
               id="email"
               name="email"
               value={formData.email}
@@ -123,7 +123,7 @@ const RegisterForm = () => {
             </label>
             <input
               type="password"
-              className="form-control"
+              className="form-control rounded-pill"
               id="password"
               name="password"
               value={formData.password}
@@ -146,7 +146,7 @@ const RegisterForm = () => {
             </label>
             <input
               type="password"
-              className="form-control"
+              className="form-control rounded-pill"
               id="confirmPassword"
               name="confirmPassword"
               value={formData.confirmPassword}
@@ -159,7 +159,7 @@ const RegisterForm = () => {
               </div>
             )}
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary rounded-pill mb-5">
             Registrarse
           </button>
         </form>

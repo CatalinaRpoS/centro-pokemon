@@ -1,6 +1,6 @@
 const paths = {
     root: '/',
-    register: '/register',
+    register: '/signup',
     nurse: '/nurse',
     trainer: '/trainer',
   };

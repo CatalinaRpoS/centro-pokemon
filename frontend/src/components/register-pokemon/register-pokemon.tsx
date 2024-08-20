@@ -182,7 +182,7 @@ const RegisterPokemon: React.FC<RegisterPokemonProps> = ({ types, status }) => {
           </div>
         ))}
       </div>
-      <div className="dv-btn">
+      <div className="dv-btn mb-3">
         <button type="submit" className="btn btn-primary rounded-pill">
           Registrar
         </button>
