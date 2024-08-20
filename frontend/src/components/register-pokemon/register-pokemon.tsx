@@ -93,28 +93,34 @@ const RegisterPokemon: React.FC<RegisterPokemonProps> = ({ types, status }) => {
       alert("Solo puedes seleccionar un máximo de 2 tipos.");
       return;
     }
+    if (formData.status.length === 0) {
+      alert("Se debe seleccionar mínimo un estado de salud.");
+      return;
+    }
     resetForm();
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="form-register-pokemon">
       <div className="mt-5 mb-4">
-        <label htmlFor="pokemonName" className="form-label">
+        <label htmlFor="pokemonName" className="form-label-pokemon">
           Nombre Pokémon
         </label>
+        <p>Mínimo 3 carácteres</p>
         <input
           type="text"
           className="form-control rounded-pill"
           id="name"
           name="name"
-          maxLength={50}
+          minLength={3}
+          maxLength={10}
           value={formData.name}
           onChange={handleChange}
           required
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="hp" className="form-label">
+        <label htmlFor="hp" className="form-label-pokemon">
           Puntos de vida (PV)
         </label>
         <input
@@ -130,7 +136,7 @@ const RegisterPokemon: React.FC<RegisterPokemonProps> = ({ types, status }) => {
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="level" className="form-label">
+        <label htmlFor="level" className="form-label-pokemon">
           Nivel
         </label>
         <input
@@ -145,7 +151,7 @@ const RegisterPokemon: React.FC<RegisterPokemonProps> = ({ types, status }) => {
           required
         />
       </div>
-      <label htmlFor="level" className="form-label">
+      <label htmlFor="level" className="form-label-pokemon">
         Tipo Pokémon
       </label>
       <p>Selecciona máximo 2 tipos</p>
@@ -164,7 +170,7 @@ const RegisterPokemon: React.FC<RegisterPokemonProps> = ({ types, status }) => {
           </div>
         ))}
       </div>
-      <label htmlFor="level" className="form-label">
+      <label htmlFor="level" className="form-label-pokemon">
         Estado actual
       </label>
       <div className="flex-container">

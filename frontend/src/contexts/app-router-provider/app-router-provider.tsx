@@ -1,9 +1,9 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import paths from '@config/paths';
 import Home from '@pages/home';
-import Trainer from '@pages/Trainer';
-import Nurse from '@pages/Nurse';
-import Register from '@pages/Register';
+import Trainer from '@pages/trainer';
+import Nurse from '@pages/nurse';
+import Register from '@pages/register';
 import ProtectedRouteRoles from './protected-route-roles';
 
 const router = createBrowserRouter([

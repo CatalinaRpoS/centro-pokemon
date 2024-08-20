@@ -56,14 +56,14 @@ const NavBar: React.FC = () => {
             className="d-inline-block align-top"
           />
         </a>
-        <h1
+        <p
           className="navbar-title"
           style={{
             fontFamily: "Montserrat, sans-serif",
           }}
         >
           CENTRO POKÉMON
-        </h1>
+        </p>
 
         <div className={`dropdown ${dropdownOpen ? "show" : ""}`}>
           <button

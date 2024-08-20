@@ -84,6 +84,11 @@ $fonts: 1.5rem;
 .form-label {
   font-size: $fonts;
 }
+
+.form-label-pokemon {
+  font-size: 1rem;
+}
+
 .dv-btn {
   display: flex;
   justify-content: center;
@@ -237,10 +242,13 @@ $fonts: 1.5rem;
   }
 }
 
+.form-register-pokemon {
+  font-size: 0.7rem;
+}
+
 .navbar-title {
   font-weight: 600;
   font-size: 30pt;
-
   margin: 0;
   display: flex;
   align-items: center;
@@ -256,6 +264,6 @@ $fonts: 1.5rem;
 
 @media (max-width: 480px) {
   .navbar-title {
-    font-size: 20pt; /* Reducir tamaño de fuente a la mitad */
+    font-size: 15pt; /* Reducir tamaño de fuente a la mitad */
   }
 }
