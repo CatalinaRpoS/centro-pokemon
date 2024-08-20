@@ -15,12 +15,18 @@ const Trainer: React.FC = () => {
         <div className="item1">
           <h2 className="text-center">Turnos</h2>
           <TableTurn pokemones={pokemones} />
-          <h2 className="text-center">Registra tu Pokémon</h2>
-          <RegisterPokemon types={types} status={status}/>
         </div>
-        <div className="item2">
-          <h2 className="text-center">Mis Pokémones</h2>
-          <VisualizePokemon pokemones={pokemones}/>
+
+        <div className="grid-container-form">
+          <div className="item2">
+            <h2 className="text-center">Registra tu Pokémon</h2>
+            <RegisterPokemon types={types} status={status} />
+          </div>
+
+          <div className="item3">
+            <h2 className="text-center">Mis Pokémones</h2>
+            <VisualizePokemon pokemones={pokemones} />
+          </div>
         </div>
       </div>
     </>

@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "@pages/home";
-import Trainer from "@pages/trainer";
-import Nurse from "@pages/nurse";
-import Register from "@pages/register";
+import Trainer from "@pages/Trainer";
+import Nurse from "@pages/Nurse";
+import Register from "@pages/Register";
 
 const router = createBrowserRouter([
   {

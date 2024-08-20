@@ -24,7 +24,7 @@ const NavBar: React.FC = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-light bg-light">
       <link rel="preconnect" href="https://fonts.gstatic.com" />
       <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
@@ -41,17 +41,15 @@ const NavBar: React.FC = () => {
           />
         </a>
         <h1
-          className="h1"
+          className="navbar-title"
           style={{
             fontFamily: "Montserrat, sans-serif",
-            fontWeight: 600,
-            fontSize: 30,
           }}
         >
           CENTRO POKÉMON
         </h1>
 
-        <div className={`dropdown ${dropdownOpen ? 'show' : ''}`}>
+        <div className={`dropdown ${dropdownOpen ? "show" : ""}`}>
           <button
             className="btn btn-secondary dropdown-toggle"
             type="button"
@@ -68,13 +66,21 @@ const NavBar: React.FC = () => {
           </button>
           <ul className="dropdown-menu">
             <li>
-              <button className="dropdown-item" type="button" onClick={toggleLoginForm}>
+              <button
+                className="dropdown-item"
+                type="button"
+                onClick={toggleLoginForm}
+              >
                 Inicia sesión
               </button>
             </li>
             <hr />
             <li>
-              <button className="dropdown-item" type="button" onClick={navigateToRegister}>
+              <button
+                className="dropdown-item"
+                type="button"
+                onClick={navigateToRegister}
+              >
                 Registrarse
               </button>
             </li>
