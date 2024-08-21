@@ -68,7 +68,6 @@ const TableRow: React.FC<TableRowProps> = ({ pokemones }) => {
                   <th scope="col">PV</th>
                   <th scope="col">Estado Actual</th>
                   <th scope="col">Entrenador</th>
-                  <th scope="col"></th>
                 </tr>
               </thead>
               <Droppable droppableId="tasks">
@@ -89,6 +88,7 @@ const TableRow: React.FC<TableRowProps> = ({ pokemones }) => {
                             {...draggableProvider.dragHandleProps}
                             ref={draggableProvider.innerRef}
                             className="tasks-item"
+                            onClick={() => handleDetailsClick(pokemon.turn)}
                           >
                             <td>{pokemon.turn}</td>
                             <td>{pokemon.name}</td>
@@ -100,15 +100,6 @@ const TableRow: React.FC<TableRowProps> = ({ pokemones }) => {
                                 .join(", ")}
                             </td>
                             <td>{pokemon.trainer}</td>
-                            <td>
-                              <button
-                                className="btn btn-primary btn-sm rounded-pill"
-                                type="button"
-                                onClick={() => handleDetailsClick(pokemon.turn)}
-                              >
-                                Detalles
-                              </button>
-                            </td>
                           </tr>
                         )}
                       </Draggable>
