@@ -45,17 +45,16 @@ $fonts: 1.5rem;
   grid-gap: 30px;
 }
 
-.grid-container-nurse {
-  display: grid;
-  grid-gap: 3rem;
+.d-flex-container-nurse {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
   margin: 1rem;
+  width: 100vw;
 
-  @media screen and (max-width: 1024px) {
-    grid-template-columns: 1fr;
-  }
-
-  @media screen and (min-width: 1025px) {
-    grid-template-columns: 1fr 3fr;
+  @media screen and (max-width: 960px) {
+    display: flex;
+    flex-direction: column;
   }
 }
 
