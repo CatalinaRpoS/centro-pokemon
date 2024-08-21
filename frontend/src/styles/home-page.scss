@@ -80,14 +80,18 @@ section {
 
   .img-responsive {
     width: 100vw !important;
+    height: auto !important;
   }
 
-  .carousels-p {
-    font-size: 10pt;
+  .carousels-p,
+  .faq-item p,
+  .accordion-body {
+    font-size: 12pt;
   }
 
-  .carousels-title {
-    font-size: 25pt;
+  .carousels-title,
+  .faq-item.h3 {
+    font-size: 20pt;
   }
 
   .faq-container {
@@ -97,7 +101,21 @@ section {
 }
 
 @media (max-width: 480px) {
-  .img-responsive {
-    width: 100vw !important;
+  /* Para detectar el zoom */
+
+  .faq-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .carousels-p,
+  .faq-item p,
+  .accordion-body {
+    font-size: 10pt;
+  }
+
+  .carousels-title,
+  .faq-item.h3 {
+    font-size: 14pt;
   }
 }

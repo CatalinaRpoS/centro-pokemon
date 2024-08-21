@@ -267,3 +267,12 @@ $fonts: 1.5rem;
     font-size: 15pt; /* Reducir tamaño de fuente a la mitad */
   }
 }
+
+.pagination {
+  padding-top: 20px;
+}
+
+.page-item.active,
+.page-item {
+  padding-left: 10px;
+}
