@@ -1,22 +1,32 @@
 import React, { useState } from "react";
 import "@styles/styles.scss";
+import { useUser } from "@contexts/user-provider";
 import { RegisterPokemonProps } from "./types";
 import { Status } from "src/types";
 
-const RegisterPokemon: React.FC<RegisterPokemonProps> = ({ types, status }) => {
+const RegisterPokemon: React.FC<RegisterPokemonProps> = (
+  { types, status, currentTurn, onRegister }
+) => {
+  const { name } = useUser();
+  const [errors, setErrors] = useState<{ type?: string; status?: string }>({});
+
+  const defaultPokemon = { 
+    name: "", 
+    lifePoints: "", 
+    level: "", 
+    type: [], 
+    status: [], 
+    image: null,
+  };
+
   const [formData, setFormData] = useState<{
     name: string;
     lifePoints: number | string;
     level: number | string;
     type: string[];
     status: Status[];
-  }>({
-    name: "",
-    lifePoints: "",
-    level: "",
-    type: [],
-    status: []
-  });
+    image: string | null;
+  }>(defaultPokemon);
 
   const [checkedStatus, setCheckedStatus] = useState(status.map(() => false));
   const [checkedTypes, setCheckedTypes] = useState(types.map(() => false));
@@ -78,25 +88,56 @@ const RegisterPokemon: React.FC<RegisterPokemonProps> = ({ types, status }) => {
   const resetForm = () => {
     setCheckedStatus(status.map(() => false));
     setCheckedTypes(types.map(() => false));
-    setFormData({
-      name: "",
-      lifePoints: "",
-      level: "",
-      type: [],
-      status: []
-    });
+    setFormData(defaultPokemon);
+    setErrors({});
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const fetchPokemonImage = async (name: string): Promise<string | null> => {
+    try {
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`);
+      if (!response.ok) {
+        throw new Error(`No se ha encontrado la imagen del Pokémon ${name}`);
+      }
+      const data = await response.json();
+      return data.sprites.other["official-artwork"].front_default || data.sprites.front_default;
+    } catch (error) {
+      return null;
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    let newErrors = {};
+  
     if (formData.type.length > 2) {
-      alert("Solo puedes seleccionar un máximo de 2 tipos.");
-      return;
+      newErrors = { ...newErrors, type: "Solo puedes seleccionar un máximo de 2 tipos." };
     }
     if (formData.status.length === 0) {
-      alert("Se debe seleccionar mínimo un estado de salud.");
+      newErrors = { ...newErrors, type: "Se debe seleccionar mínimo un estado de salud." };
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
+
+    const image = await fetchPokemonImage(formData.name);
+    setFormData((prevState) => ({
+      ...prevState,
+      image
+    }));
+
+    const newPokemon = {
+      trainer: name || "Desconocido",
+      name: formData.name,
+      lifePoints: Number(formData.lifePoints),
+      level: Number(formData.level),
+      type: formData.type,
+      status: formData.status,
+      image: image ? image : "https://cdn.pixabay.com/photo/2018/05/21/13/09/pokemon-3418266_960_720.png",
+      turn: currentTurn + 1,
+    };
+    onRegister(newPokemon);
     resetForm();
   };
 
@@ -188,6 +229,8 @@ const RegisterPokemon: React.FC<RegisterPokemonProps> = ({ types, status }) => {
           </div>
         ))}
       </div>
+      {errors.type && <p className="error-text">{errors.type}</p>}
+      {errors.status && <p className="error-text">{errors.status}</p>}
       <div className="dv-btn mb-3">
         <button type="submit" className="btn btn-primary rounded-pill">
           Registrar

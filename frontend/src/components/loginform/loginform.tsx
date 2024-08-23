@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaTimes } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 import "@styles/loginform.scss";
-import users from "@mocks/users"; // Lista de usuarios para maquetado.
+import users from "@mocks/users";
 import { LoginFormProps } from "./types";
 import paths from '@config/paths';
 
@@ -30,6 +30,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onClose }: LoginFormProps) => {
         navigate(paths.nurse);
       }
       localStorage.setItem("role", user.role);
+      localStorage.setItem("name", `${user.firstName} ${user.lastName}`);
       onClose();
     } else {
       setError("Email o contraseña incorrectos.");

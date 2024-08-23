@@ -41,7 +41,7 @@ const VisualizePokemon: React.FC<VisualizePokemonProps> = ({ pokemones }) => {
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <div>
+    <div className="d-flex flex-column align-items-center">
       <div className="grid-container-cards">
         {currentPokemones.map((pokemon, index) => (
           <PokemonCard key={index} pokemon={pokemon} />

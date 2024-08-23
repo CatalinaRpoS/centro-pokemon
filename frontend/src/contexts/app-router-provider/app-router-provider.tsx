@@ -4,7 +4,7 @@ import Home from '@pages/home';
 import Trainer from '@pages/Trainer';
 import Nurse from '@pages/Nurse';
 import Register from '@pages/Register';
-import ProtectedRouteRoles from './protected-route-roles';
+import { ProtectedRouteRoles } from '@contexts/user-provider';
 
 const router = createBrowserRouter([
   {
