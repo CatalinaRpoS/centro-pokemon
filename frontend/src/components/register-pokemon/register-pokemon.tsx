@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import "@styles/styles.scss";
 import { useUser } from "@contexts/user-provider";
-import { RegisterPokemonProps } from "./types";
+import { RegisterPokemonProps, ErrorType } from "./types";
 import { Status } from "src/types";
 
 const RegisterPokemon: React.FC<RegisterPokemonProps> = (
   { types, status, currentTurn, onRegister }
 ) => {
   const { name } = useUser();
-  const [errors, setErrors] = useState<{ type?: string; status?: string }>({});
+  const [errors, setErrors] = useState<ErrorType>({});
 
   const defaultPokemon = { 
     name: "", 
@@ -108,12 +108,19 @@ const RegisterPokemon: React.FC<RegisterPokemonProps> = (
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     let newErrors = {};
+
+    const image = await fetchPokemonImage(formData.name);
+    if (!image) {
+      newErrors = { ...newErrors, pokemon: "¡Ups! Revisa el nombre de tu Pokémon." };
+      setErrors(newErrors);
+      return;
+    }
   
     if (formData.type.length > 2) {
       newErrors = { ...newErrors, type: "Solo puedes seleccionar un máximo de 2 tipos." };
     }
     if (formData.status.length === 0) {
-      newErrors = { ...newErrors, type: "Se debe seleccionar mínimo un estado de salud." };
+      newErrors = { ...newErrors, status: "Se debe seleccionar mínimo un estado de salud." };
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -121,7 +128,6 @@ const RegisterPokemon: React.FC<RegisterPokemonProps> = (
       return;
     }
 
-    const image = await fetchPokemonImage(formData.name);
     setFormData((prevState) => ({
       ...prevState,
       image
@@ -134,7 +140,7 @@ const RegisterPokemon: React.FC<RegisterPokemonProps> = (
       level: Number(formData.level),
       type: formData.type,
       status: formData.status,
-      image: image ? image : "https://cdn.pixabay.com/photo/2018/05/21/13/09/pokemon-3418266_960_720.png",
+      image: image,
       turn: currentTurn + 1,
     };
     onRegister(newPokemon);
@@ -159,6 +165,7 @@ const RegisterPokemon: React.FC<RegisterPokemonProps> = (
           onChange={handleChange}
           required
         />
+        {errors.pokemon && <p className="error-text">{errors.pokemon}</p>}
       </div>
       <div className="mb-4">
         <label htmlFor="hp" className="form-label-pokemon">
@@ -209,8 +216,9 @@ const RegisterPokemon: React.FC<RegisterPokemonProps> = (
             />
             <img className="pokemon-type" src={path} alt={`type${index}`} />
           </div>
-        ))}
+        ))} 
       </div>
+      {errors.type && <p className="error-text">{errors.type}</p>}
       <label htmlFor="level" className="form-label-pokemon">
         Estado actual
       </label>
@@ -229,7 +237,6 @@ const RegisterPokemon: React.FC<RegisterPokemonProps> = (
           </div>
         ))}
       </div>
-      {errors.type && <p className="error-text">{errors.type}</p>}
       {errors.status && <p className="error-text">{errors.status}</p>}
       <div className="dv-btn mb-3">
         <button type="submit" className="btn btn-primary rounded-pill">

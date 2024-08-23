@@ -1,3 +1,4 @@
+import React from "react";
 import NavBar from "@components/navbar";
 import { TableRow } from "@elements/table-row";
 import prioritizePokemons from "@helpers/prioritize-pokemons";

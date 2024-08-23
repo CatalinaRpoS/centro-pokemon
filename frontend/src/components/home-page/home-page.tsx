@@ -1,3 +1,4 @@
+import React from "react";
 import NavBar from "@components/navbar";
 import Carousel from "@components/carousel";
 import InfoPage from "@components/info-page";

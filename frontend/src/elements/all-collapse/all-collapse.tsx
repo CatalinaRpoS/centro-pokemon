@@ -6,11 +6,11 @@ const AllCollapse: React.FC = () => {
   return (
     <Accordion>
       <Accordion.Item eventKey="0" className='faq-item p'>
-        <Accordion.Header> ¿Cómo puedo usar la PC del Centro Pokémon para gestionar mis Pokémon?</Accordion.Header>
+        <Accordion.Header> ¿Puedo usar los computadores del Centro Pokémon para gestionar mis Pokémon?</Accordion.Header>
         <Accordion.Body>
-        La PC en el Centro Pokémon te permite almacenar, organizar y retirar tus Pokémon de forma segura. 
-        Simplemente acércate a la PC, selecciona la opción de almacenamiento, y podrás mover tus Pokémon 
-        entre las cajas del PC y tu equipo actual.
+        ¡Claro! Los computadores en el Centro Pokémon te permiten almacenar, organizar y retirar tus Pokémon de forma segura. 
+        Simplemente acércate al equipo que encuentres disponible, selecciona la opción de almacenamiento, y podrás mover tus Pokémon 
+        entre las cajas del computador y tu equipo actual.
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="1" className='faq-item p'>

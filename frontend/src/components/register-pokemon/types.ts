@@ -6,3 +6,9 @@ export interface RegisterPokemonProps{
     currentTurn: number;
     onRegister: (pokemon: Pokemon) => void;
 }
+
+export type ErrorType = {
+    type?: string;
+    status?: string;
+    pokemon?: string;
+}

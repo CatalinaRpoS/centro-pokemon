@@ -4,7 +4,7 @@ import AllCollapse from "@elements/all-collapse/all-collapse";
 
 const InfoPage: React.FC = () => {
       return ( 
-    <section>
+    <section className="m-0">
       <div className="faq-container">
         <div className="faq-item">
           <h3 className='faq-item h3'>¿Quienes Somos?</h3>
