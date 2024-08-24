@@ -1,3 +1,4 @@
+import React from "react";
 import NursePage from "@components/nurse-page";
 
 const Nurse: React.FC = () => {

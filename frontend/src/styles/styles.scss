@@ -60,12 +60,20 @@ $fonts: 1.5rem;
   margin-right: 30px;
   max-width: 100vw;
 
+  &.full-width {
+    grid-template-columns: 1fr;
+  }
+
   @media screen and (max-width: 768px) {
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-left: 10px;
     margin-right: 10px;
+
+    &.full-width {
+      flex-direction: column;
+    }
   }
 }
 
