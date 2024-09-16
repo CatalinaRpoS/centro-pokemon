@@ -1,8 +1,8 @@
 import { PokemonModel } from '../models/pokemon.js'
-import { validatePokemon, validatePartialPokemon } from '../schemas/movies.js'
+import { validatePokemon, validatePartialPokemon } from '../schemas/pokemon.js'
 
 export class PokemonController {
-  static async getAll (res) {
+  static async getAll (req, res) {
     try {
         const pokemones = await PokemonModel.getAll()
         res.json(pokemones)

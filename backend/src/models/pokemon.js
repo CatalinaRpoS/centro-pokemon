@@ -1,11 +1,14 @@
 import mysql from 'mysql2/promise';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const config = {
-    host: 'localhost',
-    user: 'root',
-    port: 3306,
-    password: '',
-    database: 'centrodb'
+  host: 'bphk9wvdfyawpnb1iiez-mysql.services.clever-cloud.com',
+  database: 'bphk9wvdfyawpnb1iiez',
+  user: 'uctisvp7bw5nojq9',
+  port: 3306,
+  password: 'FLwpFD1FSjeiUC9TpzZ0'
 }
 
 const connection = await mysql.createConnection(config);

@@ -1,12 +1,12 @@
-import { Router } from 'express'
+import { Router } from 'express';
 
-import { PokemonController } from '../controllers/pokemon.js'
+import { PokemonController } from '../controllers/pokemon.js';
 
-export const pokemonnRouter = Router()
+export const pokemonRouter = Router();
 
-pokemonnRouter.get('/', PokemonController.getAll)
-pokemonnRouter.post('/', PokemonController.create)
+pokemonRouter.get('/', PokemonController.getAll);
+pokemonRouter.post('/', PokemonController.create);
 
-pokemonnRouter.get('/:id',  PokemonController.getById)
-pokemonnRouter.delete('/:id', PokemonController.delete)
-pokemonnRouter.patch('/:id',  PokemonController.update)
+pokemonRouter.get('/:id',  PokemonController.getById);
+pokemonRouter.delete('/:id', PokemonController.delete);
+pokemonRouter.patch('/:id',  PokemonController.update);
