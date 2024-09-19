@@ -1,9 +1,12 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import { PokemonCard } from "@elements/pokemon-card";
 import { TableRowProps, IDragResult } from "./types";
 import { Pokemon, Status } from "src/types";
 import "@styles/styles.scss";
+import io from "socket.io-client"; 
+
+const socket = io('http://localhost:3000'); 
 
 const TableRow: React.FC<TableRowProps> = ({ pokemones }) => {
   const [turnsList, setTurnsList] = useState<Pokemon[]>(pokemones);
@@ -12,6 +15,17 @@ const TableRow: React.FC<TableRowProps> = ({ pokemones }) => {
   );
   const cardRef = useRef<HTMLDivElement>(null);
   const isTurnsListEmpty = turnsList.length === 0;
+
+  useEffect(() => {
+    // Escuchar actualizaciones de la lista de turnos
+    socket.on('turnsListUpdated', (newTurnsList: Pokemon[]) => {
+      setTurnsList(newTurnsList);
+    });
+
+    return () => {
+      socket.off('turnsListUpdated'); // Desconectar el evento al desmontar el componente
+    };
+  }, []);
   
   const onDragEnd = (result: IDragResult) => {
     const { source, destination } = result;
@@ -26,6 +40,7 @@ const TableRow: React.FC<TableRowProps> = ({ pokemones }) => {
     });
     
     setTurnsList(newTurnsList);
+    socket.emit('updateTurnsList', newTurnsList); // Emitir el cambio de lista de turnos
   };
   
   const handleDetailsClick = (index: number) => {
@@ -48,6 +63,7 @@ const TableRow: React.FC<TableRowProps> = ({ pokemones }) => {
         ...turn,
         turn: index + 1,
       }));
+      socket.emit('updateTurnsList', updatedTurnsList); // Emitir la lista actualizada después de atender un turno
       return updatedTurnsList;
     });
   };

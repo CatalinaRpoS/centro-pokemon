@@ -9,6 +9,13 @@ const config = {
   password: process.env.MYSQL_ADDON_PASSWORD,
 }
 
-const connection = await mysql.createConnection(config);
+async function initDBConnection() {
+  try {
+    const connection = await mysql.createConnection(config);
+    return connection;
+  } catch (error) {
+    throw new Error('Error conectando a la base de datos: ' + error.message);
+  }
+}
 
-export default connection;
+export default initDBConnection;
