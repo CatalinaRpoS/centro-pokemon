@@ -4,12 +4,13 @@ export type Status = {
 };
 
 export type Pokemon = {
+    id: number;
     turn: number;
     name: string;
     level: number;
-    trainer: string;
-    lifePoints: number;
-    status: Array<Status>;
-    type: Array<string>;
+    trainer_email: string;
+    life_points: number;
+    first_type: string;
+    second_type: string;
     image: string;
 };

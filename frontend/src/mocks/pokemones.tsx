@@ -7,6 +7,7 @@ import status from "./status";
 
 const pokemones: Array<Pokemon> = [
   {
+    id: 1,
     image: swadloon,
     name:"Swadloon",
     level:18,
@@ -17,6 +18,7 @@ const pokemones: Array<Pokemon> = [
     type:[type14, type2]
   },
   {
+    id: 2,
     image:leafeon,
     name:"Leafeon",
     level:50,
@@ -27,6 +29,7 @@ const pokemones: Array<Pokemon> = [
     type:[type1]
   },
   {
+    id: 3,
     image:pikachu,
     name:"Pikachu",
     level:22,
@@ -37,6 +40,7 @@ const pokemones: Array<Pokemon> = [
     type:[type6]
   },
   {
+    id: 4,
     image:mewtwo,
     name:"Mewtwo",
     level:33,
@@ -47,6 +51,7 @@ const pokemones: Array<Pokemon> = [
     type:[type18]
   },
   {
+    id: 5,
     image: swadloon,
     name:"Swadloon",
     level:22,

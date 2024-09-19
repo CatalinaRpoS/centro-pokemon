@@ -1,20 +1,15 @@
-import connection from './db';
+import { initDBConnection } from './db.js';
 
+let connection;
+(async () => {
+  connection = await initDBConnection();
+})();
 export class PokemonModel {
-    static async getAll (filter = {}) {
+    static async getAll () {
       try {
-        const query = 'SELECT * FROM pokemones'
-        const conditions = []
-        const values = []
-  
-        if (filter.id_entrenador) {
-          conditions.push('id_entrenador = ?')
-          values.push(filter.id_entrenador)
-        }
-  
-        const finalQuery = conditions.length ? `${query} WHERE ${conditions.join(' AND ')}` : query
-        const [rows] = await connection.query(finalQuery, values)
-        return rows
+        const query = 'SELECT * FROM Pokemon';
+        const [rows] = await connection.query(query);
+        return rows;
       } catch (error) {
         throw new Error('Failed to fetch pokemones')
       }

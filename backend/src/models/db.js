@@ -7,15 +7,15 @@ const config = {
   user: process.env.MYSQL_ADDON_USER,
   port: process.env.MYSQL_ADDON_PORT ? parseInt(process.env.MYSQL_ADDON_PORT, 10) : 3306,
   password: process.env.MYSQL_ADDON_PASSWORD,
-}
+};
 
-async function initDBConnection() {
+export async function initDBConnection() {
   try {
     const connection = await mysql.createConnection(config);
+    console.log('Connected to the MySQL database');
     return connection;
   } catch (error) {
-    throw new Error('Error conectando a la base de datos: ' + error.message);
+    console.error('Error connecting to the database:', error);
+    throw error;
   }
 }
-
-export default initDBConnection;

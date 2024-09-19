@@ -1,4 +1,9 @@
-import connection from './db.js';
+import { initDBConnection } from './db.js';
+
+let connection;
+(async () => {
+  connection = await initDBConnection();
+})();
 
 export class TrainerModel {
     static async getAllStatus () {

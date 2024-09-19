@@ -5,9 +5,10 @@ export class PokemonController {
   static async getAll (req, res) {
     try {
         const pokemones = await PokemonModel.getAll()
+        console.log(pokemones)
         res.json(pokemones)
     } catch (error) {
-        res.status(500).json({ message: error.message })
+        res.status(500).json({ message: "rayos" })
     }
   }
 
