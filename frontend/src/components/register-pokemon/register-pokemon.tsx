@@ -12,20 +12,22 @@ const RegisterPokemon: React.FC<RegisterPokemonProps> = (
 
   const defaultPokemon = { 
     name: "", 
-    lifePoints: "", 
+    life_points: "", 
     level: "", 
-    type: [], 
-    status: [], 
-    image: null,
+    first_type: "", 
+    second_type: "", 
+    status: [],
+    types: []
   };
 
   const [formData, setFormData] = useState<{
     name: string;
-    lifePoints: number | string;
+    life_points: number | string;
     level: number | string;
-    type: string[];
+    first_type: string;
+    second_type: string;
     status: Status[];
-    image: string | null;
+    types: string[];
   }>(defaultPokemon);
 
   const [checkedStatus, setCheckedStatus] = useState(status.map(() => false));
@@ -46,7 +48,7 @@ const RegisterPokemon: React.FC<RegisterPokemonProps> = (
       return newCheckedTypes;
     });
     setFormData((prevState) => {
-      const newTypes = [...prevState.type];
+      const newTypes = [...prevState.types];
       if (checked) {
         newTypes.push(types[index]);
       } else {
@@ -116,7 +118,7 @@ const RegisterPokemon: React.FC<RegisterPokemonProps> = (
       return;
     }
   
-    if (formData.type.length > 2) {
+    if (formData.types.length > 2) {
       newErrors = { ...newErrors, type: "Solo puedes seleccionar un máximo de 2 tipos." };
     }
     if (formData.status.length === 0) {
@@ -134,13 +136,13 @@ const RegisterPokemon: React.FC<RegisterPokemonProps> = (
     }));
 
     const newPokemon = {
-      trainer: name || "Desconocido",
+      id: currentTurn + 1,
+      trainer_email: name || "Desconocido",
       name: formData.name,
-      lifePoints: Number(formData.lifePoints),
+      life_points: Number(formData.life_points),
       level: Number(formData.level),
-      type: formData.type,
-      status: formData.status,
-      image: image,
+      first_type: formData.types[0],
+      second_type: formData.types[1],
       turn: currentTurn + 1,
     };
     onRegister(newPokemon);
@@ -173,12 +175,12 @@ const RegisterPokemon: React.FC<RegisterPokemonProps> = (
         </label>
         <input
           type="number"
-          id="lifePoints"
-          name="lifePoints"
+          id="life_points"
+          name="life_points"
           min="0"
           max="255"
           className="form-control rounded-pill"
-          value={formData.lifePoints}
+          value={formData.life_points}
           onChange={handleChange}
           required
         />

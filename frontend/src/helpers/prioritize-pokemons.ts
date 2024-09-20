@@ -23,11 +23,11 @@ const statusPriority: Record<string, number> = {
 const calculatePriority = (pokemon: Pokemon): number => {
     let priority = 0;
 
-    const lifePoints = pokemon.lifePoints / 255;
+    const lifePoints = pokemon.life_points / 255;
     priority += (1 - lifePoints) * 65;
 
-    const totalStatus = pokemon.status.reduce((sum, status) => sum + statusPriority[status.name], 0);
-    priority += totalStatus * 3;
+    // const totalStatus = pokemon.status.reduce((sum, status) => sum + statusPriority[status.name], 0);
+    // priority += totalStatus * 3;
 
     const level = 1 - (pokemon.level / 100);
     priority += level * 5;

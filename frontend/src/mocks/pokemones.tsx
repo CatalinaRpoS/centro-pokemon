@@ -1,65 +1,58 @@
-import { pikachu, mewtwo, swadloon, leafeon } from "@assets/pokemon";
 import { 
     type1, type2, type6, type14, type15, type18 
 } from "@assets/types";
 import { Pokemon } from "../types";
-import status from "./status";
 
 const pokemones: Array<Pokemon> = [
   {
     id: 1,
-    image: swadloon,
     name:"Swadloon",
     level:18,
-    trainer: "Clemont Doe",
+    trainer_email: "Clemont Doe",
     turn:1,
-    lifePoints:27,
-    status: [status[0]],
-    type:[type14, type2]
+    life_points:27,
+    first_type: type14,
+    second_type: type2
   },
   {
     id: 2,
-    image:leafeon,
     name:"Leafeon",
     level:50,
-    trainer: "Gary Oak",
+    trainer_email: "Gary Oak",
     turn:2,
-    lifePoints:53,
-    status:[status[4], status[2]],
-    type:[type1]
+    life_points:53,
+    first_type: type1,
+    second_type: type2
   },
   {
     id: 3,
-    image:pikachu,
     name:"Pikachu",
     level:22,
-    trainer: "Ash Ketchum",
+    trainer_email: "Ash Ketchum",
     turn:3,
-    lifePoints:59,
-    status:[status[2], status[3], status[1]],
-    type:[type6]
+    life_points:59,
+    first_type: type6,
+    second_type: type2
   },
   {
     id: 4,
-    image:mewtwo,
     name:"Mewtwo",
     level:33,
-    trainer: "Gary Oak",
+    trainer_email: "Gary Oak",
     turn:4,
-    lifePoints:71,
-    status:[status[0], status[1], status[2], status[3], status[4]],
-    type:[type18]
+    life_points:71,
+    first_type: type18,
+    second_type: type2
   },
   {
     id: 5,
-    image: swadloon,
     name:"Swadloon",
     level:22,
-    trainer: "Ash Ketchum",
+    trainer_email: "Ash Ketchum",
     turn:5,
-    lifePoints:13,
-    status: [status[0], status[1], status[3], status[4]],
-    type:[type14, type15]
+    life_points:13,
+    first_type: type15,
+    second_type: type2
   },
 ];
 

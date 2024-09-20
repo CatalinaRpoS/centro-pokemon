@@ -1,37 +1,42 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import { PokemonCard } from "@elements/pokemon-card";
-import { TableRowProps, IDragResult } from "./types";
+import { IDragResult } from "./types";
 import { Pokemon } from "src/types";
 import "@styles/styles.scss";
-// import io from "socket.io-client"; 
 
-// const socket = io('http://localhost:3000'); 
+const TableRow: React.FC = () => {
+  const [pokemones, setPokemones] = useState<Pokemon[]>([]);
 
-const TableRow: React.FC<TableRowProps> = ({ pokemones }) => {
-  const [turnsList, setTurnsList] = useState<Pokemon[]>(pokemones);
+  useEffect(() => {
+    const fetchPokemones = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/nurse/');
+        if (!response.ok) {
+          throw new Error('Failed to fetch pokemones');
+        }
+        const data: Pokemon[] = await response.json();
+        setPokemones(data);
+        console.log(pokemones);
+      } catch (error) {
+        console.error('Error fetching pokemones:', error);
+      }
+    };
+
+    fetchPokemones();
+  }, []);
+
   const [selectedTurnIndex, setSelectedTurnIndex] = useState<number | null>(
     null
   );
   const cardRef = useRef<HTMLDivElement>(null);
-  const isTurnsListEmpty = turnsList.length === 0;
-
-  // useEffect(() => {
-  //   // Escuchar actualizaciones de la lista de turnos
-  //   socket.on('turnsListUpdated', (newTurnsList: Pokemon[]) => {
-  //     setTurnsList(newTurnsList);
-  //   });
-
-  //   return () => {
-  //     socket.off('turnsListUpdated'); // Desconectar el evento al desmontar el componente
-  //   };
-  // }, []);
+  const isTurnsListEmpty = pokemones.length === 0;
   
   const onDragEnd = (result: IDragResult) => {
     const { source, destination } = result;
     if (!destination) return;
     
-    const newTurnsList = [...turnsList];
+    const newTurnsList = [...pokemones];
     const [removed] = newTurnsList.splice(source.index, 1);
     newTurnsList.splice(destination.index, 0, removed);
     
@@ -39,8 +44,7 @@ const TableRow: React.FC<TableRowProps> = ({ pokemones }) => {
       pokemon.turn = index + 1;
     });
     
-    setTurnsList(newTurnsList);
-    // socket.emit('updateTurnsList', newTurnsList); // Emitir el cambio de lista de turnos
+    setPokemones(newTurnsList);
   };
   
   const handleDetailsClick = (index: number) => {
@@ -48,22 +52,21 @@ const TableRow: React.FC<TableRowProps> = ({ pokemones }) => {
   };
   
   const getPokemonByTurn = (turno: number | string) => {
-    return turnsList.find((pokemon: Pokemon) => pokemon.turn === turno);
+    return pokemones.find((pokemon: Pokemon) => pokemon.turn === turno);
   };
   
   const selectedPokemon =
-  turnsList.length > 0
-    ? (selectedTurnIndex !== null ? getPokemonByTurn(selectedTurnIndex) : getPokemonByTurn(turnsList[0].turn))
+  pokemones.length > 0
+    ? (selectedTurnIndex !== null ? getPokemonByTurn(selectedTurnIndex) : getPokemonByTurn(pokemones[0].turn))
     : null;
   
   const removeFirstPokemon = () => {
-    setTurnsList((prevTurnsList) => {
+    setPokemones((prevTurnsList) => {
       if (prevTurnsList.length === 0) return prevTurnsList;
       const updatedTurnsList = prevTurnsList.slice(1).map((turn, index) => ({
         ...turn,
         turn: index + 1,
       }));
-      // socket.emit('updateTurnsList', updatedTurnsList); // Emitir la lista actualizada después de atender un turno
       return updatedTurnsList;
     });
   };
@@ -98,14 +101,14 @@ const TableRow: React.FC<TableRowProps> = ({ pokemones }) => {
         {...droppableProvider.droppableProps}
         ref={droppableProvider.innerRef}
         >
-        {turnsList.length === 0 ? (
+        {pokemones.length === 0 ? (
           <tr>
           <td colSpan={6} className="text-center">
           No hay Pokémons esperando, puedes descansar.
           </td>
           </tr>
         ) : (
-          turnsList.map((pokemon, index) => (
+          pokemones.map((pokemon, index) => (
             <Draggable
             key={pokemon.turn}
             draggableId={pokemon.turn.toString()}
@@ -127,10 +130,10 @@ const TableRow: React.FC<TableRowProps> = ({ pokemones }) => {
               {/* {pokemon.status
                 .map((s: Status) => s.name)
                 .join(", ")} */}
-                </td>
-                <td>{pokemon.trainer_email}</td>
-                </tr>
-              )}
+              </td>
+              <td>{pokemon.trainer_email}</td>
+              </tr>
+            )}
               </Draggable>
             ))
           )}
@@ -154,7 +157,7 @@ const TableRow: React.FC<TableRowProps> = ({ pokemones }) => {
       </div>
       </>
     );
-  };
+};
   
-  export default TableRow;
+export default TableRow;
   

@@ -7,7 +7,7 @@ let connection;
 export class PokemonModel {
     static async getAll () {
       try {
-        const query = 'SELECT * FROM Pokemon';
+        const query = 'SELECT * FROM Pokemon ORDER BY turn';
         const [rows] = await connection.query(query);
         return rows;
       } catch (error) {

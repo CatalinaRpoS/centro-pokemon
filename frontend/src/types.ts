@@ -12,5 +12,4 @@ export type Pokemon = {
     life_points: number;
     first_type: string;
     second_type: string;
-    image?: string;
 };
