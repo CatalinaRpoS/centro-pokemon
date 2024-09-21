@@ -31,7 +31,7 @@ const users = [
     firstName: "Jane",
     lastName: "Smith",
     email: "jane.smith@example.com",
-    password: "SecurePassword456!",
+    password: "123",
     role: "nurse",
   },
 ];

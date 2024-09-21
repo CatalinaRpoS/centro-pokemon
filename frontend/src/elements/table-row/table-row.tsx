@@ -4,9 +4,9 @@ import { PokemonCard } from "@elements/pokemon-card";
 import { IDragResult } from "./types";
 import { Pokemon } from "src/types";
 import "@styles/styles.scss";
-import io from "socket.io-client";
+import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
 
-const socket = io('http://localhost:3000');
+const socket = io("http://localhost:3000");
 
 const TableRow: React.FC = () => {
   const [pokemones, setPokemones] = useState<Pokemon[]>([]);
@@ -26,14 +26,17 @@ const TableRow: React.FC = () => {
       }
     };
 
+    fetchPokemones();
+  }, []);
+
+  useEffect(() => {
     socket.on('turnsListUpdated', (newTurnsList: Pokemon[]) => {
       setPokemones(newTurnsList);
     });
+
     return () => {
       socket.off('turnsListUpdated');
     };
-
-    fetchPokemones();
   }, []);
 
   const [selectedTurnIndex, setSelectedTurnIndex] = useState<number | null>(
@@ -74,6 +77,8 @@ const TableRow: React.FC = () => {
   const removeFirstPokemon = () => {
     setPokemones((prevTurnsList) => {
       if (prevTurnsList.length === 0) return prevTurnsList;
+      const removedPokemon=prevTurnsList[0].id;
+      console.log(removedPokemon);
       const updatedTurnsList = prevTurnsList.slice(1).map((turn, index) => ({
         ...turn,
         turn: index + 1,

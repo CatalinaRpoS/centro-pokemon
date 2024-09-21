@@ -9,8 +9,7 @@ import { pokemonRouter } from './routes/pokemon.js';
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware y rutas
-app.use(corsMiddleware()); // Usar el middleware de CORS
+app.use(corsMiddleware());
 app.use(express.json());
 app.disable('x-powered-by');
 
@@ -21,23 +20,19 @@ app.get('/', (req, res) => {
   res.send('Welcome to the Centro Pokemon API');
 });
 
-// Inicializar la conexión a la base de datos
 initDBConnection()
   .then((dbConnection) => {
-    // Crear el servidor HTTP y Socket.IO
     const server = http.createServer(app);
     const io = new Server(server, {
       cors: {
-        origin: '*', // Permitir todas las solicitudes de origen cruzado
+        origin: '*',
         methods: ['GET', 'POST']
       }
     });
 
-    // Manejador de eventos de conexión de socket
     io.on('connection', (socket) => {
       console.log('Nurse connected');
 
-      // Escuchar cambios en la lista de turnos y actualizarlos en la base de datos
       socket.on('updateTurnsList', async (newTurnsList) => {
         try {
           await dbConnection.beginTransaction();
@@ -56,36 +51,28 @@ initDBConnection()
         }
       });
 
-      // Escuchar cambios en la lista de turnos y actualizarlos en la base de datos
-      socket.on('takeTurn', async ({ removedPokemonId, updatedTurnsList }) => {
+      socket.on('takeTurn', async (removedPokemonId) => {
         try {
           await dbConnection.beginTransaction();
 
-          // Eliminar el Pokémon atendido
-          const deleteQuery = 'DELETE FROM Pokemon WHERE id = ?';
-          await dbConnection.execute(deleteQuery, [removedPokemonId]);
-
-          // Actualizar los turnos de los Pokémon restantes
-          for (const pokemon of updatedTurnsList) {
-            const { id, turn } = pokemon;
-            const updateQuery = 'UPDATE Pokemon SET turn = ? WHERE id = ?';
-            await dbConnection.execute(updateQuery, [turn, id]);
-          }
+          const query = 'DELETE FROM Pokemon WHERE id = ?';
+          console.log(removedPokemonId);
+          await dbConnection.execute(query, [removedPokemonId]);
 
           await dbConnection.commit();
-          io.emit('turnsListUpdated', updatedTurnsList);
+          io.emit('turnsListUpdated', newTurnsList);
         } catch (error) {
           await dbConnection.rollback();
           console.error('Error updating to the database:', error);
         }
       });
+      
 
       socket.on('disconnect', () => {
         console.log('Nurse disconnected');
       });
     });
 
-    // Iniciar el servidor
     server.listen(PORT, () => {
       console.log(`Server listening on http://localhost:${PORT}`);
     });
