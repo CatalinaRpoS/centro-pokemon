@@ -4,6 +4,9 @@ import { PokemonCard } from "@elements/pokemon-card";
 import { IDragResult } from "./types";
 import { Pokemon } from "src/types";
 import "@styles/styles.scss";
+import io from "socket.io-client";
+
+const socket = io('http://localhost:3000');
 
 const TableRow: React.FC = () => {
   const [pokemones, setPokemones] = useState<Pokemon[]>([]);
@@ -21,6 +24,13 @@ const TableRow: React.FC = () => {
       } catch (error) {
         console.error('Error fetching pokemones:', error);
       }
+    };
+
+    socket.on('turnsListUpdated', (newTurnsList: Pokemon[]) => {
+      setPokemones(newTurnsList);
+    });
+    return () => {
+      socket.off('turnsListUpdated');
     };
 
     fetchPokemones();
@@ -45,6 +55,7 @@ const TableRow: React.FC = () => {
     });
     
     setPokemones(newTurnsList);
+    socket.emit('updateTurnsList', newTurnsList);
   };
   
   const handleDetailsClick = (index: number) => {
@@ -67,6 +78,7 @@ const TableRow: React.FC = () => {
         ...turn,
         turn: index + 1,
       }));
+      socket.emit('updateTurnsList', updatedTurnsList);
       return updatedTurnsList;
     });
   };

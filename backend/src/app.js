@@ -23,21 +23,19 @@ app.get('/', (req, res) => {
 
 // Inicializar la conexión a la base de datos
 initDBConnection()
-  .then((connection) => {
-    app.set('dbConnection', connection); // Configurar la conexión en el app object
-
+  .then((dbConnection) => {
     // Crear el servidor HTTP y Socket.IO
     const server = http.createServer(app);
     const io = new Server(server, {
-      cors: corsMiddleware
+      cors: {
+        origin: '*', // Permitir todas las solicitudes de origen cruzado
+        methods: ['GET', 'POST']
+      }
     });
 
     // Manejador de eventos de conexión de socket
     io.on('connection', (socket) => {
       console.log('Nurse connected');
-
-      // Obtener la conexión de la base de datos desde el app object
-      const dbConnection = app.get('dbConnection');
 
       // Escuchar cambios en la lista de turnos y actualizarlos en la base de datos
       socket.on('updateTurnsList', async (newTurnsList) => {
@@ -52,6 +50,30 @@ initDBConnection()
 
           await dbConnection.commit();
           io.emit('turnsListUpdated', newTurnsList);
+        } catch (error) {
+          await dbConnection.rollback();
+          console.error('Error updating to the database:', error);
+        }
+      });
+
+      // Escuchar cambios en la lista de turnos y actualizarlos en la base de datos
+      socket.on('takeTurn', async ({ removedPokemonId, updatedTurnsList }) => {
+        try {
+          await dbConnection.beginTransaction();
+
+          // Eliminar el Pokémon atendido
+          const deleteQuery = 'DELETE FROM Pokemon WHERE id = ?';
+          await dbConnection.execute(deleteQuery, [removedPokemonId]);
+
+          // Actualizar los turnos de los Pokémon restantes
+          for (const pokemon of updatedTurnsList) {
+            const { id, turn } = pokemon;
+            const updateQuery = 'UPDATE Pokemon SET turn = ? WHERE id = ?';
+            await dbConnection.execute(updateQuery, [turn, id]);
+          }
+
+          await dbConnection.commit();
+          io.emit('turnsListUpdated', updatedTurnsList);
         } catch (error) {
           await dbConnection.rollback();
           console.error('Error updating to the database:', error);
