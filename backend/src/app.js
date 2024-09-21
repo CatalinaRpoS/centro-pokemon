@@ -33,7 +33,7 @@ initDBConnection()
     io.on('connection', (socket) => {
       console.log('Nurse connected');
 
-      socket.on('updateTurnsList', async (newTurnsList) => {
+      socket.on('updateTurnsList', async (newTurnsList, removedPokemonId) => {
         try {
           await dbConnection.beginTransaction();
 
@@ -43,21 +43,10 @@ initDBConnection()
             await dbConnection.execute(query, [turn, id]);
           }
 
-          await dbConnection.commit();
-          io.emit('turnsListUpdated', newTurnsList);
-        } catch (error) {
-          await dbConnection.rollback();
-          console.error('Error updating to the database:', error);
-        }
-      });
-
-      socket.on('takeTurn', async (removedPokemonId) => {
-        try {
-          await dbConnection.beginTransaction();
-
-          const query = 'DELETE FROM Pokemon WHERE id = ?';
-          console.log(removedPokemonId);
-          await dbConnection.execute(query, [removedPokemonId]);
+          if(removedPokemonId){
+            const query = 'DELETE FROM Pokemon WHERE id = ?';
+            await dbConnection.execute(query, [removedPokemonId]);
+          }
 
           await dbConnection.commit();
           io.emit('turnsListUpdated', newTurnsList);
@@ -67,7 +56,6 @@ initDBConnection()
         }
       });
       
-
       socket.on('disconnect', () => {
         console.log('Nurse disconnected');
       });

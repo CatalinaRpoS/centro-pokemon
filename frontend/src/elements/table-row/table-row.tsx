@@ -4,7 +4,7 @@ import { PokemonCard } from "@elements/pokemon-card";
 import { IDragResult } from "./types";
 import { Pokemon } from "src/types";
 import "@styles/styles.scss";
-import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
+import io from "socket.io-client";
 
 const socket = io("http://localhost:3000");
 
@@ -83,7 +83,7 @@ const TableRow: React.FC = () => {
         ...turn,
         turn: index + 1,
       }));
-      socket.emit('updateTurnsList', updatedTurnsList);
+      socket.emit('updateTurnsList', updatedTurnsList, removedPokemon);
       return updatedTurnsList;
     });
   };
