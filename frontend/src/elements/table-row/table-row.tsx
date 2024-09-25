@@ -1,12 +1,13 @@
-import React, { useState, useRef, useEffect } from "react";
-import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
-import { PokemonCard } from "@elements/pokemon-card";
-import { IDragResult } from "./types";
-import { Pokemon } from "src/types";
-import "@styles/styles.scss";
-import io from "socket.io-client";
+import React, { useState, useRef, useEffect } from 'react';
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
+import { PokemonCard } from '@elements/pokemon-card';
+import { baseUrl, routes } from '@config/api';
+import { IDragResult } from './types';
+import { Pokemon, Status } from 'src/types';
+import '@styles/styles.scss';
+import io from 'socket.io-client';
 
-const socket = io("http://localhost:3000");
+const socket = io(baseUrl);
 
 const TableRow: React.FC = () => {
   const [pokemones, setPokemones] = useState<Pokemon[]>([]);
@@ -14,7 +15,7 @@ const TableRow: React.FC = () => {
   useEffect(() => {
     const fetchPokemones = async () => {
       try {
-        const response = await fetch('http://localhost:3000/nurse/');
+        const response = await fetch(routes.nurse);
         if (!response.ok) {
           throw new Error('Failed to fetch pokemones');
         }
@@ -89,29 +90,29 @@ const TableRow: React.FC = () => {
   
   return (
     <>
-    <div className={`d-flex-container-nurse ${isTurnsListEmpty ? "full-width" : ""}`}>
+    <div className={`d-flex-container-nurse ${isTurnsListEmpty ? 'full-width' : ''}`}>
     {!isTurnsListEmpty && (
           <div
-            className="d-flex justify-content-center item-pokemon mt-3"
+            className='d-flex justify-content-center item-pokemon mt-3'
             ref={cardRef}
           >
             {selectedPokemon && <PokemonCard pokemon={selectedPokemon} />}
           </div>
         )}
-      <div className="table-wrapper table-turnos mt-3">
+      <div className='table-wrapper table-turnos mt-3'>
       <DragDropContext onDragEnd={onDragEnd}>
-      <table className="table table-striped">
+      <table className='table table-striped'>
       <thead>
       <tr>
-      <th scope="col">Turno</th>
-      <th scope="col">Pokémon</th>
-      <th scope="col">Nivel</th>
-      <th scope="col">PV</th>
-      <th scope="col">Estado Actual</th>
-      <th scope="col">Entrenador</th>
+      <th scope='col'>Turno</th>
+      <th scope='col'>Pokémon</th>
+      <th scope='col'>Nivel</th>
+      <th scope='col'>PV</th>
+      <th scope='col'>Estado Actual</th>
+      <th scope='col'>Entrenador</th>
       </tr>
       </thead>
-      <Droppable droppableId="tasks">
+      <Droppable droppableId='tasks'>
       {(droppableProvider) => (
         <tbody
         {...droppableProvider.droppableProps}
@@ -119,7 +120,7 @@ const TableRow: React.FC = () => {
         >
         {pokemones.length === 0 ? (
           <tr>
-          <td colSpan={6} className="text-center">
+          <td colSpan={6} className='text-center'>
           No hay Pokémons esperando, puedes descansar.
           </td>
           </tr>
@@ -135,7 +136,7 @@ const TableRow: React.FC = () => {
               {...draggableProvider.draggableProps}
               {...draggableProvider.dragHandleProps}
               ref={draggableProvider.innerRef}
-              className="tasks-item"
+              className='tasks-item'
               onClick={() => handleDetailsClick(pokemon.turn)}
               >
               <td>{pokemon.turn}</td>
@@ -143,9 +144,9 @@ const TableRow: React.FC = () => {
               <td>{pokemon.level}</td>
               <td>{pokemon.life_points}</td>
               <td>
-              {/* {pokemon.status
-                .map((s: Status) => s.name)
-                .join(", ")} */}
+                {pokemon.pokemon_status ? pokemon.pokemon_status
+                  .map((s: Status) => s.name)
+                  .join(", ") : ' '}
               </td>
               <td>{pokemon.trainer_fullname}</td>
               </tr>
@@ -162,10 +163,10 @@ const TableRow: React.FC = () => {
         </div>
       </div>
       
-      <div className="button-container">
+      <div className='button-container'>
       <button
-      className="btn btn-primary btn-md justify-content-center rounded-pill"
-      type="button"
+      className='btn btn-primary btn-md justify-content-center rounded-pill'
+      type='button'
       onClick={() => removeFirstPokemon()}
       >
       Atender siguiente turno

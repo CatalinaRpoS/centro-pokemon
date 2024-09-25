@@ -1,10 +1,10 @@
 import { getConnection } from './db.js';
 
-export class TrainerModel {
+export class RegisterModel {
     static async getAllStatus () {
         const connection = await getConnection();
         try {
-            const query = 'SELECT * FROM Estado';
+            const query = 'SELECT * FROM Status';
             const [rows] = await connection.query(query);
             return rows;
         } catch (error) {
@@ -17,7 +17,7 @@ export class TrainerModel {
     static async getAllTypes () {
         const connection = await getConnection();
         try {
-            const query = 'SELECT * FROM Tipo';
+            const query = 'SELECT * FROM Type';
             const [rows] = await connection.query(query);
             return rows;
         } catch (error) {
