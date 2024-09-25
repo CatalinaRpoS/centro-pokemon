@@ -8,7 +8,7 @@ export type Pokemon = {
     turn: number;
     name: string;
     level: number;
-    trainer_email: string;
+    trainer_fullname: string;
     life_points: number;
     first_type: string;
     second_type: string;

@@ -20,7 +20,6 @@ const TableRow: React.FC = () => {
         }
         const data: Pokemon[] = await response.json();
         setPokemones(data);
-        console.log(pokemones);
       } catch (error) {
         console.error('Error fetching pokemones:', error);
       }
@@ -148,7 +147,7 @@ const TableRow: React.FC = () => {
                 .map((s: Status) => s.name)
                 .join(", ")} */}
               </td>
-              <td>{pokemon.trainer_email}</td>
+              <td>{pokemon.trainer_fullname}</td>
               </tr>
             )}
               </Draggable>
