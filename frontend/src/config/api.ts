@@ -9,6 +9,8 @@ const routes = {
     trainer: {
         types: baseUrl + '/trainer/types',
         status: baseUrl + '/trainer/status',
+        turns: baseUrl + '/trainer/turns',
+        pokemons: baseUrl + '/trainer/pokemons',
     }
 }
 

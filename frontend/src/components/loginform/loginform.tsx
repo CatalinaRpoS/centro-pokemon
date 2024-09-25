@@ -12,9 +12,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ onClose }: LoginFormProps) => {
     navigate(paths.register);
   };
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,16 +24,16 @@ const LoginForm: React.FC<LoginFormProps> = ({ onClose }: LoginFormProps) => {
     );
 
     if (user) {
-      if (user.role === "trainer") {
+      if (user.rol === 'trainer') {
         navigate(paths.trainer);
-      } else if (user.role === "nurse") {
+      } else if (user.rol === 'nurse') {
         navigate(paths.nurse);
       }
-      localStorage.setItem("role", user.role);
-      localStorage.setItem("name", `${user.firstName} ${user.lastName}`);
+      localStorage.setItem('role', user.rol);
+      localStorage.setItem('email', `${user.email}`);
       onClose();
     } else {
-      setError("Email o contraseña incorrectos.");
+      setError('Email o contraseña incorrectos.');
     }
   };
 

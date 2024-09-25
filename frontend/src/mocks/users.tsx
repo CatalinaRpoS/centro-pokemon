@@ -1,39 +1,46 @@
 const users = [
   {
-    firstName: "Clemont",
-    lastName: "Doe",
-    email: "cdoe@example.com",
-    password: "Password123!",
-    role: "trainer",
+    name: 'Ash',
+    last_name: 'Ketchum',
+    email: 'Ash@gmail.com',
+    password: 'AKet4*',
+    rol: 'trainer'
   },
   {
-    firstName: "Gary",
-    lastName: "Oak",
-    email: "gary.oak@example.com",
-    password: "gary123",
-    role: "trainer",
+    name: 'Gary',
+    last_name: 'Oak',
+    email: 'Gary@gmail.com',
+    password: '$oakG67',
+    rol: 'trainer'
   },
   {
-    firstName: "Ash",
-    lastName: "Ketchum",
-    email: "ash@centro.com",
-    password: "123",
-    role: "trainer",
+    name: 'Steve',
+    last_name: 'Stone',
+    email: 'Steve@hotmail.com',
+    password: 'st$st03',
+    rol: 'trainer'
+  }, 
+  {
+    name: 'Jessie',
+    last_name: 'Rocket',
+    email: 'Jessie@yahoo.com',
+    password: 'RocketAlPoder!0',
+    rol: 'trainer'
   },
   {
-    firstName: "Joy",
-    lastName: "Gomez",
-    email: "joy@example.com",
-    password: "JoySecure2023!",
-    role: "nurse",
+    name: 'Carolina',
+    last_name: 'Joy',
+    email: 'caro@centro.com',
+    password: 'Roca22?',
+    rol: 'nurse'
   },
   {
-    firstName: "Jane",
-    lastName: "Smith",
-    email: "jane.smith@example.com",
-    password: "123",
-    role: "nurse",
-  },
+    name: 'Catalina',
+    last_name: 'Joy',
+    email: 'cata@centro.com',
+    password: '%18Joy%',
+    rol: 'nurse'
+  }
 ];
 
 export default users;

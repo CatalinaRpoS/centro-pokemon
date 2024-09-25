@@ -68,8 +68,7 @@ export class PokemonModel {
             p.level,
             p.life_points,
             CONCAT(u.name, ' ', u.last_name) as trainer_fullname,
-            GROUP_CONCAT(ps.status ORDER BY ps.status SEPARATOR ', ') as status_names,
-            GROUP_CONCAT(s.image ORDER BY ps.status SEPARATOR ', ') as status_images,
+            GROUP_CONCAT(CONCAT(ps.status, ':', s.image) ORDER BY ps.status SEPARATOR ', ') as pokemon_status,
             CONCAT(t1.name, ':', t1.image) as first_type,
             CONCAT(t2.name, ':', t2.image) as second_type
           FROM Pokemon p

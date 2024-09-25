@@ -4,15 +4,14 @@ import RegisterPokemon from '@components/register-pokemon';
 import VisualizePokemon from '@components/visualize-pokemon';
 import TableTurn from '@elements/table-turn';
 import '@styles/styles.scss';
-import prioritizePokemons from '@helpers/prioritize-pokemons';
-import pokemones from '@mocks/pokemones';
 import { routes } from '@config/api';
 import { Type, Status } from 'src/types';
 
 const Trainer: React.FC = () => {
-  const pokemons = pokemones;
   const [types, setTypes] = useState<Type[]>([]);
   const [status, setStatus] = useState<Status[]>([]);
+  const [pokemonTurns, setPokemonTurns] = useState([]);
+  const [ownedPokemons, setOwnedPokemons] = useState([]);
 
   useEffect(() => {
     const fetchTypes = async () => {
@@ -48,6 +47,41 @@ const Trainer: React.FC = () => {
     fetchStatus();
   }, []);
 
+  useEffect(() => {
+    const fetchPokemonTurns = async () => {
+      try {
+        const response = await fetch(routes.trainer.turns);
+        if (!response.ok) {
+          throw new Error('Failed to fetch turns');
+        }
+        const data = await response.json();
+        setPokemonTurns(data);
+      } catch (error) {
+        console.error('Error fetching turns:', error);
+      }
+    };
+
+    fetchPokemonTurns();
+  }, []);
+
+  useEffect(() => {
+    const fetchOwnedPokemons = async () => {
+      const email = localStorage.getItem('email');
+      try {
+        const response = await fetch(`${routes.trainer.pokemons}/${email}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch turns');
+        }
+        const data = await response.json();
+        setOwnedPokemons(data);
+      } catch (error) {
+        console.error('Error fetching turns:', error);
+      }
+    };
+
+    fetchOwnedPokemons();
+  }, []);
+
   const handleRegister = (newPokemon: {
     trainer_email: string;
     name: string;
@@ -59,14 +93,13 @@ const Trainer: React.FC = () => {
     console.log(newPokemon);
   };
 
-  const sortedPokemons = prioritizePokemons(pokemons);
   return (
     <>
       <NavBar />
       <div className='grid-container-trainer'>
         <div className='item1'>
           <h2 className='text-center'>Turnos</h2>
-          <TableTurn pokemones={sortedPokemons} />
+          <TableTurn pokemones={pokemonTurns} />
         </div>
 
         <div className='grid-container-form'>
@@ -74,14 +107,14 @@ const Trainer: React.FC = () => {
             <h2 className='text-center'>Registra tu Pokémon</h2>
             <RegisterPokemon pokemonTypes={types} 
               pokemonStatus={status} 
-              currentTurn={sortedPokemons.length}
+              currentTurn={pokemonTurns.length}
               onRegister={handleRegister} 
             />
           </div>
 
           <div className='item3'>
             <h2 className='text-center'>Mis Pokémones</h2>
-            <VisualizePokemon pokemones={sortedPokemons} />
+            <VisualizePokemon pokemones={ownedPokemons} />
           </div>
         </div>
       </div>
