@@ -1,36 +1,36 @@
-import { getConnection } from './db.js';
+import { getConnection } from "./db.js";
 
 export class TrainerModel {
-    static async getAllStatus () {
-        const connection = await getConnection();
-        try {
-            const query = 'SELECT * FROM Status';
-            const [rows] = await connection.query(query);
-            return rows;
-        } catch (error) {
-            throw new Error('Failed to fetch status');
-        } finally {
-            connection.release();
-        }
+  static async getAllStatus() {
+    const connection = await getConnection();
+    try {
+      const query = "SELECT * FROM Status";
+      const [rows] = await connection.query(query);
+      return rows;
+    } catch (error) {
+      throw new Error("Failed to fetch status");
+    } finally {
+      connection.release();
     }
+  }
 
-    static async getAllTypes () {
-        const connection = await getConnection();
-        try {
-            const query = 'SELECT * FROM Type';
-            const [rows] = await connection.query(query);
-            return rows;
-        } catch (error) {
-            throw new Error('Failed to fetch types');
-        } finally {
-            connection.release();
-        }
+  static async getAllTypes() {
+    const connection = await getConnection();
+    try {
+      const query = "SELECT * FROM Type";
+      const [rows] = await connection.query(query);
+      return rows;
+    } catch (error) {
+      throw new Error("Failed to fetch types");
+    } finally {
+      connection.release();
     }
+  }
 
-    static async getPokemonsById ({ id }) {
-        const connection = await getConnection();
-        try {
-          const query = `
+  static async getPokemonsById({ id }) {
+    const connection = await getConnection();
+    try {
+      const query = `
             SELECT
               p.id,
               p.turn,
@@ -55,30 +55,37 @@ export class TrainerModel {
               p.level,
               p.life_points,
               trainer_fullname
+            ORDER BY p.turn
           `;
-          const [rows] = await connection.query(query, [id]);
-          
-          const result = rows.map(row => ({
-            ...row,
-            pokemon_status: row.pokemon_status ? row.pokemon_status.split(', ').map(info => {
-                const [name, image] = info.split(':');
-                return { name, image };
-            }) : [],
-            first_type: row.first_type ? (() => {
-              const [name, image] = row.first_type.split(':');
+      const [rows] = await connection.query(query, [id]);
+
+      const result = rows.map((row) => ({
+        ...row,
+        pokemon_status: row.pokemon_status
+          ? row.pokemon_status.split(", ").map((info) => {
+              const [name, image] = info.split(":");
               return { name, image };
-            })() : null,
-            second_type: row.second_type ? (() => {
-              const [name, image] = row.second_type.split(':');
+            })
+          : [],
+        first_type: row.first_type
+          ? (() => {
+              const [name, image] = row.first_type.split(":");
               return { name, image };
-            })() : null
-        }));
-  
-          return result;
-        } catch (error) {
-          throw new Error('Failed to fetch pokemon by user ID');
-        } finally {
-          connection.release();
-        }
-      }
+            })()
+          : null,
+        second_type: row.second_type
+          ? (() => {
+              const [name, image] = row.second_type.split(":");
+              return { name, image };
+            })()
+          : null,
+      }));
+
+      return result;
+    } catch (error) {
+      throw new Error("Failed to fetch pokemon by user ID");
+    } finally {
+      connection.release();
+    }
+  }
 }
