@@ -158,7 +158,7 @@ const RegisterPokemon: React.FC<RegisterPokemonProps> = ({
       life_points: Number(formData.life_points),
       level: Number(formData.level),
       first_type: formData.types[0],
-      second_type: formData.types[1] || null,
+      second_type: formData.types[1],
       pokemon_status: formData.status,
     };
     onRegister(newPokemon);

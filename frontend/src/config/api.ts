@@ -11,6 +11,7 @@ const routes = {
         status: baseUrl + '/trainer/status',
         turns: baseUrl + '/trainer/turns',
         pokemons: baseUrl + '/trainer/pokemons',
+        create: baseUrl + '/trainer/pokemon',
     }
 }
 

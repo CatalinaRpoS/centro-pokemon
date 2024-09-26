@@ -8,3 +8,4 @@ trainerRouter.get('/status', TrainerController.getAllStatus);
 trainerRouter.get('/types', TrainerController.getAllTypes);
 trainerRouter.get('/turns', PokemonController.getAll);
 trainerRouter.get('/pokemons/:id', TrainerController.getPokemonsById);
+trainerRouter.post('/pokemon', TrainerController.create);

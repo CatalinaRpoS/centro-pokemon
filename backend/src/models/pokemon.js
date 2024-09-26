@@ -28,7 +28,7 @@ export class PokemonModel {
             p.level,
             p.life_points,
             trainer_fullname
-          ORDER BY p.turn
+          ORDER BY p.turn DESC
         `;
         const [rows] = await connection.query(query);
 
@@ -115,11 +115,39 @@ export class PokemonModel {
     static async create (data) {
       const connection = await getConnection();
       try {
-        const query = 'INSERT INTO Pokemon (name, level, id_entrenador, turn, lifePoints, status, type) VALUES (?, ?, ?, ?)'
-        const { name, level, id_entrenador, turn, lifePoints, status, type } = data
-        const [result] = await connection.query(query, [name, level, id_entrenador, turn, lifePoints, status, type])
-        return { id: result.insertId, ...data };
+        // Calcular la prioridad
+        const lifePoints = data.life_points / 255;
+        const levelPoints = 1 - (data.level / 100);
+
+        let status = 0;
+        for (const s of data.pokemon_status) {
+          status += s.priority;
+        }
+        const turn = (((1 - lifePoints) * 65) + (status * 30) + (levelPoints * 5));
+    
+        // Verificar si second_type es null
+        data.second_type = data.second_type || null;
+    
+        // Insertar en la tabla Pokemon
+        const query = 'INSERT INTO Pokemon (trainer_email, name, level, turn, life_points, first_type, second_type) VALUES (?, ?, ?, ?, ?, ?, ?)';
+        const { name, level, trainer_email, life_points, first_type, second_type } = data;
+        const [result] = await connection.query(query, [trainer_email, name, level, turn, life_points, first_type, second_type]);
+    
+        // Obtener pokemonId después de la inserción
+        const pokemonId = result.insertId;
+        console.log('Pokemon ID:', pokemonId);
+    
+        // Insertar en Pokemon_Status si hay estados
+        if (data.pokemon_status.length) {
+          const statusQuery = 'INSERT INTO Pokemon_Status (status, pokemon) VALUES ?';
+          const statusValues = data.pokemon_status.map(s => [s.name, pokemonId]);
+          await connection.query(statusQuery, [statusValues]);
+        }
+    
+        return result;
+    
       } catch (error) {
+        console.log(error);
         throw new Error('Failed to create pokemon');
       } finally {
         connection.release();

@@ -55,7 +55,7 @@ export class TrainerModel {
               p.level,
               p.life_points,
               trainer_fullname
-            ORDER BY p.turn
+            ORDER BY p.turn DESC
           `;
       const [rows] = await connection.query(query, [id]);
 

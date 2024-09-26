@@ -88,9 +88,20 @@ const Trainer: React.FC = () => {
     life_points: number;
     level: number;
     first_type: string;
-    second_type: string;
+    second_type: string | null;
+    pokemon_status: Status[];
   }) => {
-    console.log(newPokemon);
+    try {
+      fetch(routes.trainer.create, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newPokemon),
+      });
+    } catch (error) {
+      console.error('Error creating pokemon:', error);
+    }
   };
 
   return (

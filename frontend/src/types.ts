@@ -1,6 +1,7 @@
 export type Status = {
     name: string;
     image: string;
+    priority: number;
 };
 
 export type Type = {

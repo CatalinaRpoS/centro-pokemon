@@ -48,15 +48,23 @@ const TableRow: React.FC = () => {
   const onDragEnd = (result: IDragResult) => {
     const { source, destination } = result;
     if (!destination) return;
-    
+
     const newTurnsList = [...pokemones];
-    const [removed] = newTurnsList.splice(source.index, 1);
-    newTurnsList.splice(destination.index, 0, removed);
-    
-    newTurnsList.forEach((pokemon, index) => {
-      pokemon.turn = index + 1;
-    });
-    
+  
+    const sourcePokemon = newTurnsList[source.index];
+    const destinationPokemon = newTurnsList[destination.index];
+  
+    if (sourcePokemon.turn === destinationPokemon.turn) {
+      return;
+    }
+
+    newTurnsList.splice(source.index, 1);
+    newTurnsList.splice(destination.index, 0, sourcePokemon);
+  
+    const tempTurn = sourcePokemon.turn;
+    sourcePokemon.turn = destinationPokemon.turn;
+    destinationPokemon.turn = tempTurn;
+
     setPokemones(newTurnsList);
     socket.emit('updateTurnsList', newTurnsList);
   };
