@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import { PokemonCard } from '@elements/pokemon-card';
-import { baseUrl, routes } from '@config/api';
-import { IDragResult } from './types';
-import { Pokemon, Status } from 'src/types';
-import '@styles/styles.scss';
-import io from 'socket.io-client';
+import React, { useState, useRef, useEffect } from "react";
+import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import { PokemonCard } from "@elements/pokemon-card";
+import { baseUrl, routes } from "@config/api";
+import { IDragResult } from "./types";
+import { Pokemon, Status } from "src/types";
+import "@styles/styles.scss";
+import io from "socket.io-client";
 
 const socket = io(baseUrl);
 
@@ -17,12 +17,18 @@ const TableRow: React.FC = () => {
       try {
         const response = await fetch(routes.nurse);
         if (!response.ok) {
-          throw new Error('Failed to fetch pokemones');
+          throw new Error("Failed to fetch pokemones");
         }
         const data: Pokemon[] = await response.json();
-        setPokemones(data);
+
+        const updatedData = data.map((pokemon, index) => ({
+          ...pokemon,
+          turn: index + 1,
+        }));
+
+        setPokemones(updatedData);
       } catch (error) {
-        console.error('Error fetching pokemones:', error);
+        console.error("Error fetching pokemones:", error);
       }
     };
 
@@ -30,12 +36,12 @@ const TableRow: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    socket.on('turnsListUpdated', (newTurnsList: Pokemon[]) => {
+    socket.on("turnsListUpdated", (newTurnsList: Pokemon[]) => {
       setPokemones(newTurnsList);
     });
 
     return () => {
-      socket.off('turnsListUpdated');
+      socket.off("turnsListUpdated");
     };
   }, []);
 
@@ -44,145 +50,152 @@ const TableRow: React.FC = () => {
   );
   const cardRef = useRef<HTMLDivElement>(null);
   const isTurnsListEmpty = pokemones.length === 0;
-  
+
   const onDragEnd = (result: IDragResult) => {
     const { source, destination } = result;
     if (!destination) return;
 
     const newTurnsList = [...pokemones];
-  
+
     const sourcePokemon = newTurnsList[source.index];
     const destinationPokemon = newTurnsList[destination.index];
-  
+
     if (sourcePokemon.turn === destinationPokemon.turn) {
       return;
     }
 
     newTurnsList.splice(source.index, 1);
     newTurnsList.splice(destination.index, 0, sourcePokemon);
-  
+
     const tempTurn = sourcePokemon.turn;
     sourcePokemon.turn = destinationPokemon.turn;
     destinationPokemon.turn = tempTurn;
 
     setPokemones(newTurnsList);
-    socket.emit('updateTurnsList', newTurnsList);
+    socket.emit("updateTurnsList", newTurnsList);
   };
-  
+
   const handleDetailsClick = (index: number) => {
     setSelectedTurnIndex(index);
   };
-  
+
   const getPokemonByTurn = (turno: number | string) => {
     return pokemones.find((pokemon: Pokemon) => pokemon.turn === turno);
   };
-  
+
   const selectedPokemon =
-  pokemones.length > 0
-    ? (selectedTurnIndex !== null ? getPokemonByTurn(selectedTurnIndex) : getPokemonByTurn(pokemones[0].turn))
-    : null;
-  
+    pokemones.length > 0
+      ? selectedTurnIndex !== null
+        ? getPokemonByTurn(selectedTurnIndex)
+        : getPokemonByTurn(pokemones[0].turn)
+      : null;
+
   const removeFirstPokemon = () => {
     setPokemones((prevTurnsList) => {
       if (prevTurnsList.length === 0) return prevTurnsList;
-      const removedPokemon=prevTurnsList[0].id;
+      const removedPokemon = prevTurnsList[0].id;
       console.log(removedPokemon);
       const updatedTurnsList = prevTurnsList.slice(1).map((turn, index) => ({
         ...turn,
         turn: index + 1,
       }));
-      socket.emit('updateTurnsList', updatedTurnsList, removedPokemon);
+      socket.emit("updateTurnsList", updatedTurnsList, removedPokemon);
       return updatedTurnsList;
     });
   };
-  
+
   return (
     <>
-    <div className={`d-flex-container-nurse ${isTurnsListEmpty ? 'full-width' : ''}`}>
-    {!isTurnsListEmpty && (
+      <div
+        className={`d-flex-container-nurse ${
+          isTurnsListEmpty ? "full-width" : ""
+        }`}
+      >
+        {!isTurnsListEmpty && (
           <div
-            className='d-flex justify-content-center item-pokemon mt-3'
+            className="d-flex justify-content-center item-pokemon mt-3"
             ref={cardRef}
           >
             {selectedPokemon && <PokemonCard pokemon={selectedPokemon} />}
           </div>
         )}
-      <div className='table-wrapper table-turnos mt-3'>
-      <DragDropContext onDragEnd={onDragEnd}>
-      <table className='table table-striped'>
-      <thead>
-      <tr>
-      <th scope='col'>Turno</th>
-      <th scope='col'>Pokémon</th>
-      <th scope='col'>Nivel</th>
-      <th scope='col'>PV</th>
-      <th scope='col'>Estado Actual</th>
-      <th scope='col'>Entrenador</th>
-      </tr>
-      </thead>
-      <Droppable droppableId='tasks'>
-      {(droppableProvider) => (
-        <tbody
-        {...droppableProvider.droppableProps}
-        ref={droppableProvider.innerRef}
-        >
-        {pokemones.length === 0 ? (
-          <tr>
-          <td colSpan={6} className='text-center'>
-          No hay Pokémons esperando, puedes descansar.
-          </td>
-          </tr>
-        ) : (
-          pokemones.map((pokemon, index) => (
-            <Draggable
-            key={pokemon.turn}
-            draggableId={pokemon.turn.toString()}
-            index={index}
-            >
-            {(draggableProvider) => (
-              <tr
-              {...draggableProvider.draggableProps}
-              {...draggableProvider.dragHandleProps}
-              ref={draggableProvider.innerRef}
-              className='tasks-item'
-              onClick={() => handleDetailsClick(pokemon.turn)}
-              >
-              <td>{pokemon.turn}</td>
-              <td>{pokemon.name}</td>
-              <td>{pokemon.level}</td>
-              <td>{pokemon.life_points}</td>
-              <td>
-                {pokemon.pokemon_status ? pokemon.pokemon_status
-                  .map((s: Status) => s.name)
-                  .join(", ") : ' '}
-              </td>
-              <td>{pokemon.trainer_fullname}</td>
-              </tr>
-            )}
-              </Draggable>
-            ))
-          )}
-          {droppableProvider.placeholder}
-          </tbody>
-        )}
-        </Droppable>
-        </table>
-        </DragDropContext>
+        <div className="table-wrapper table-turnos mt-3">
+          <DragDropContext onDragEnd={onDragEnd}>
+            <table className="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Turno</th>
+                  <th scope="col">Pokémon</th>
+                  <th scope="col">Nivel</th>
+                  <th scope="col">PV</th>
+                  <th scope="col">Estado Actual</th>
+                  <th scope="col">Entrenador</th>
+                </tr>
+              </thead>
+              <Droppable droppableId="tasks">
+                {(droppableProvider) => (
+                  <tbody
+                    {...droppableProvider.droppableProps}
+                    ref={droppableProvider.innerRef}
+                  >
+                    {pokemones.length === 0 ? (
+                      <tr>
+                        <td colSpan={6} className="text-center">
+                          No hay Pokémons esperando, puedes descansar.
+                        </td>
+                      </tr>
+                    ) : (
+                      pokemones.map((pokemon, index) => (
+                        <Draggable
+                          key={pokemon.turn}
+                          draggableId={pokemon.turn.toString()}
+                          index={index}
+                        >
+                          {(draggableProvider) => (
+                            <tr
+                              {...draggableProvider.draggableProps}
+                              {...draggableProvider.dragHandleProps}
+                              ref={draggableProvider.innerRef}
+                              className="tasks-item"
+                              onClick={() => handleDetailsClick(pokemon.turn)}
+                            >
+                              <td>{pokemon.turn}</td>
+                              <td>{pokemon.name}</td>
+                              <td>{pokemon.level}</td>
+                              <td>{pokemon.life_points}</td>
+                              <td>
+                                {pokemon.pokemon_status
+                                  ? pokemon.pokemon_status
+                                      .map((s: Status) => s.name)
+                                      .join(", ")
+                                  : " "}
+                              </td>
+                              <td>{pokemon.trainer_fullname}</td>
+                            </tr>
+                          )}
+                        </Draggable>
+                      ))
+                    )}
+                    {droppableProvider.placeholder}
+                  </tbody>
+                )}
+              </Droppable>
+            </table>
+          </DragDropContext>
         </div>
       </div>
-      
-      <div className='button-container'>
-      <button
-      className='btn btn-primary btn-md justify-content-center rounded-pill'
-      type='button'
-      onClick={() => removeFirstPokemon()}
-      >
-      Atender siguiente turno
-      </button>
+
+      <div className="button-container">
+        <button
+          className="btn btn-primary btn-md justify-content-center rounded-pill"
+          type="button"
+          onClick={() => removeFirstPokemon()}
+        >
+          Atender siguiente turno
+        </button>
       </div>
-      </>
-    );
+    </>
+  );
 };
-  
+
 export default TableRow;
-  
