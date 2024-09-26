@@ -15,9 +15,9 @@ const TableTurn: React.FC<TableTurnProps> = ({ pokemones }) => {
         </tr>
       </thead>
       <tbody>
-      {firstFivePokemons.map((pokemon) => (
+      {firstFivePokemons.map((pokemon, index) => (
           <tr key={pokemon.turn}>
-            <th scope="row">{pokemon.turn}</th>
+            <th scope="row">{index+1}</th>
             <td>{pokemon.name}</td>
           </tr>
       ))}

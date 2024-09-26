@@ -20,13 +20,7 @@ const TableRow: React.FC = () => {
           throw new Error("Failed to fetch pokemones");
         }
         const data: Pokemon[] = await response.json();
-
-        const updatedData = data.map((pokemon, index) => ({
-          ...pokemon,
-          turn: index + 1,
-        }));
-
-        setPokemones(updatedData);
+        setPokemones(data);
       } catch (error) {
         console.error("Error fetching pokemones:", error);
       }
@@ -56,23 +50,16 @@ const TableRow: React.FC = () => {
     if (!destination) return;
 
     const newTurnsList = [...pokemones];
+    const [removed] = newTurnsList.splice(source.index, 1);
+    newTurnsList.splice(destination.index, 0, removed);
 
-    const sourcePokemon = newTurnsList[source.index];
-    const destinationPokemon = newTurnsList[destination.index];
+    const updatedTurnsList = newTurnsList.map((pokemon, index) => ({
+      ...pokemon,
+      turn: pokemones[index].turn,
+    }));
 
-    if (sourcePokemon.turn === destinationPokemon.turn) {
-      return;
-    }
-
-    newTurnsList.splice(source.index, 1);
-    newTurnsList.splice(destination.index, 0, sourcePokemon);
-
-    const tempTurn = sourcePokemon.turn;
-    sourcePokemon.turn = destinationPokemon.turn;
-    destinationPokemon.turn = tempTurn;
-
-    setPokemones(newTurnsList);
-    socket.emit("updateTurnsList", newTurnsList);
+    setPokemones(updatedTurnsList);
+    socket.emit("updateTurnsList", updatedTurnsList);
   };
 
   const handleDetailsClick = (index: number) => {
@@ -94,10 +81,9 @@ const TableRow: React.FC = () => {
     setPokemones((prevTurnsList) => {
       if (prevTurnsList.length === 0) return prevTurnsList;
       const removedPokemon = prevTurnsList[0].id;
-      console.log(removedPokemon);
-      const updatedTurnsList = prevTurnsList.slice(1).map((turn, index) => ({
-        ...turn,
-        turn: index + 1,
+      const updatedTurnsList = prevTurnsList.slice(1).map((pokemon, index) => ({
+        ...pokemon,
+        turn: pokemones[index].turn,
       }));
       socket.emit("updateTurnsList", updatedTurnsList, removedPokemon);
       return updatedTurnsList;
@@ -116,7 +102,12 @@ const TableRow: React.FC = () => {
             className="d-flex justify-content-center item-pokemon mt-3"
             ref={cardRef}
           >
-            {selectedPokemon && <PokemonCard pokemon={selectedPokemon} />}
+            {selectedPokemon && (
+              <PokemonCard 
+                pokemon={selectedPokemon} 
+                currentTurn={pokemones.indexOf(selectedPokemon) + 1} 
+              />
+            )}
           </div>
         )}
         <div className="table-wrapper table-turnos mt-3">
@@ -159,7 +150,7 @@ const TableRow: React.FC = () => {
                               className="tasks-item"
                               onClick={() => handleDetailsClick(pokemon.turn)}
                             >
-                              <td>{pokemon.turn}</td>
+                              <td>{index+1}</td>
                               <td>{pokemon.name}</td>
                               <td>{pokemon.level}</td>
                               <td>{pokemon.life_points}</td>

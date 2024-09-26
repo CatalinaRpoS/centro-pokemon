@@ -3,7 +3,7 @@ import { types, status } from '@config/images';
 import { PokemonCardProps } from './types';
 import '@styles/pokemonCard.scss';
 
-const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
+const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon, currentTurn }) => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
     <div className='card pokemon-card'>
       <div className='card-body d-flex justify-content-between pokemon-title'>
         <h5 className='card-title'>{pokemon.name}</h5>
-        <h5 className='card-title'>Turno {pokemon.turn}</h5>
+        <h5 className='card-title'>Turno {currentTurn}</h5>
       </div>
       <div className='card-body body'>
         <div className='pokemon-card-type d-flex'>

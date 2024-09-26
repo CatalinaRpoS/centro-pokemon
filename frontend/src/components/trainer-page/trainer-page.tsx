@@ -5,13 +5,17 @@ import VisualizePokemon from "@components/visualize-pokemon";
 import TableTurn from "@elements/table-turn";
 import "@styles/styles.scss";
 import { routes } from "@config/api";
+import { PokemonType } from "./types";
 import { Type, Status } from "src/types";
 
 const Trainer: React.FC = () => {
   const [types, setTypes] = useState<Type[]>([]);
   const [status, setStatus] = useState<Status[]>([]);
+
   const [pokemonTurns, setPokemonTurns] = useState([]);
   const [ownedPokemons, setOwnedPokemons] = useState([]);
+
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     const fetchTypes = async () => {
@@ -55,21 +59,14 @@ const Trainer: React.FC = () => {
           throw new Error("Failed to fetch turns");
         }
         const data = await response.json();
-
-        const updatedData = data.map((obj: any, index: number) => ({
-          ...obj,
-          turn: index + 1,
-        }));
-
-        setPokemonTurns(updatedData);
-        console.log(updatedData);
+        setPokemonTurns(data);
       } catch (error) {
         console.error("Error fetching turns:", error);
       }
     };
 
     fetchPokemonTurns();
-  }, []);
+  }, [refresh]);
 
   useEffect(() => {
     const fetchOwnedPokemons = async () => {
@@ -87,25 +84,21 @@ const Trainer: React.FC = () => {
     };
 
     fetchOwnedPokemons();
-  }, []);
+  }, [refresh]);
 
-  const handleRegister = (newPokemon: {
-    trainer_email: string;
-    name: string;
-    life_points: number;
-    level: number;
-    first_type: string;
-    second_type: string | null;
-    pokemon_status: Status[];
-  }) => {
+  const handleRegister = async (newPokemon: PokemonType) => {
     try {
-      fetch(routes.trainer.create, {
+      const response = await fetch(routes.trainer.create, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(newPokemon),
       });
+      if (!response.ok) {
+        throw new Error("Error creating pokemon");
+      }
+      setRefresh(prev => !prev);
     } catch (error) {
       console.error("Error creating pokemon:", error);
     }

@@ -1,3 +1,3 @@
-import TrainerPage from "./trainer-page";
+export * from './types';
 
-export default TrainerPage;
+export { default as TrainerPage } from './trainer-page';
