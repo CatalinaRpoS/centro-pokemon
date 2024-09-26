@@ -98,7 +98,7 @@ const Trainer: React.FC = () => {
       if (!response.ok) {
         throw new Error("Error creating pokemon");
       }
-      setRefresh(prev => !prev);
+      setRefresh((prev) => !prev);
     } catch (error) {
       console.error("Error creating pokemon:", error);
     }
