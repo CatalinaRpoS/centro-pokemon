@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import "@styles/register.scss";
 import { useNavigate } from "react-router-dom";
 import paths from "@config/paths";
+import {routes} from "@config/api";
 import NavBar from "@components/navbar";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    name: '',
+    last_name: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -62,10 +63,30 @@ const RegisterForm = () => {
     return valid;
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateForm()) {
-      navigate(paths.root);
+      const trainer = { name: formData.name, last_name: formData.last_name, email: formData.email, password: formData.password }; 
+      try {
+        const response = await fetch(routes.trainer.signup, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(trainer),
+        });
+        const data = await response.json();
+        if (response.ok) {
+          localStorage.setItem('role', 'trainer');
+          localStorage.setItem('email', data.email);
+          navigate(paths.trainer);
+        } else {
+          alert(data.message);
+        }
+      }
+      catch (error) {
+        console.error("Error:", error);
+      }
     }
   };
 
@@ -76,29 +97,29 @@ const RegisterForm = () => {
         <h2>Regístrate</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="firstName" className="form-label">
+            <label htmlFor="name" className="form-label">
               Nombre
             </label>
             <input
               type="text"
               className="form-control rounded-pill"
-              id="firstName"
-              name="firstName"
-              value={formData.firstName}
+              id="name"
+              name="name"
+              value={formData.name}
               onChange={handleChange}
               required
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="lastName" className="form-label">
+            <label htmlFor="last_name" className="form-label">
               Apellido
             </label>
             <input
               type="text"
               className="form-control rounded-pill"
-              id="lastName"
-              name="lastName"
-              value={formData.lastName}
+              id="last_name"
+              name="last_name"
+              value={formData.last_name}
               onChange={handleChange}
               required
             />

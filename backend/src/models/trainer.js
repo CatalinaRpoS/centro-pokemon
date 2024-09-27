@@ -112,6 +112,7 @@ export class TrainerModel {
       const [rows] = await connection.query(query, [name, last_name, email, newpassword, rol]);
       return rows;
     } catch (error) {
+      console.log(error);
       throw new Error("Failed to create a new user");
     } finally {
       connection.release();
