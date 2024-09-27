@@ -28,4 +28,25 @@ export class TrainerController {
       res.status(500).json({ message: error.message });
     }
   }
+
+  static async signup(req, res) {
+    try {
+      const { email, password, name, last_name } = req.body;
+      const user = await TrainerModel.signup({ email, password, name, last_name });
+      if (user) return res.status(201).json(user);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+
+  static async login(req, res) {
+    try {
+      const { email, password } = req.body;
+      const user = await TrainerModel.login({ email, password });
+      if (user) return res.json(user);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+  
 }

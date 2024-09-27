@@ -9,3 +9,5 @@ trainerRouter.get("/types", TrainerController.getAllTypes);
 trainerRouter.get("/turns", PokemonController.getAll);
 trainerRouter.get("/pokemons/:id", TrainerController.getPokemonsById);
 trainerRouter.post("/pokemon", PokemonController.create);
+trainerRouter.post("/signup",TrainerController.signup);
+trainerRouter.post("/login", TrainerController.login);

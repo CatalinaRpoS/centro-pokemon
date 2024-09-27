@@ -88,4 +88,57 @@ export class TrainerModel {
       connection.release();
     }
   }
+
+  static async getAllTypes() {
+    const connection = await getConnection();
+    try {
+      const query = "SELECT * FROM Type";
+      const [rows] = await connection.query(query);
+      return rows;
+    } catch (error) {
+      throw new Error("Failed to fetch types");
+    } finally {
+      connection.release();
+    }
+  }
+
+  static async signup(data) {
+    const connection = await getConnection();
+    try {
+      const { name, last_name, email, password } = data;
+      const newpassword = await bcrypt.hash(password, 10);
+      const rol = "trainer";
+      const query = "INSERT INTO User (name, last_name, email, password, rol) VALUES (?, ?, ?, ?, ?)";
+      const [rows] = await connection.query(query, [name, last_name, email, newpassword, rol]);
+      return rows;
+    } catch (error) {
+      throw new Error("Failed to create a new user");
+    } finally {
+      connection.release();
+    }
+  }
+
+  static async login(data) {
+    const connection = await getConnection();
+    try {
+      const { email, password } = data;
+      const query = "SELECT * FROM User WHERE email = ?";
+      const [rows] = await connection.query(query, [email]);
+      if (rows.length === 0) {
+        throw new Error("User not found");
+      }
+      const user = rows[0];
+      const validPassword = await bcrypt.compare(password, user.password);
+      if (!validPassword) {
+        throw new Error("Invalid password");
+      }
+      return user;
+    } catch (error) {
+      throw new Error("Failed to login");
+    } finally {
+      connection.release();
+    }
+  }
+
+  
 }
