@@ -5,6 +5,7 @@ import { getConnection } from './models/db.js';
 import { corsMiddleware } from './middlewares/cors.js';
 import { trainerRouter } from './routes/trainer.js';
 import { pokemonRouter } from './routes/pokemon.js';
+import { root } from './routes/root.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -22,6 +23,7 @@ app.disable('x-powered-by');
 
 app.use('/trainer', trainerRouter);
 app.use('/nurse', pokemonRouter);
+app.use('/',root);
 
 app.get('/', (req, res) => {
   res.send('Welcome to the Centro Pokemon API');

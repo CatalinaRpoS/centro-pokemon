@@ -78,7 +78,7 @@ const RegisterForm = () => {
         const data = await response.json();
         if (response.ok) {
           localStorage.setItem('role', 'trainer');
-          localStorage.setItem('email', data.email);
+          localStorage.setItem('email', trainer.email);
           navigate(paths.trainer);
         } else {
           alert(data.message);

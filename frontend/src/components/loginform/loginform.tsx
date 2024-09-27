@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaTimes } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 import "@styles/loginform.scss";
-import users from "@mocks/users";
+import {routes} from "@config/api"
 import { LoginFormProps } from "./types";
 import paths from '@config/paths';
 
@@ -16,25 +16,38 @@ const LoginForm: React.FC<LoginFormProps> = ({ onClose }: LoginFormProps) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async(e: React.FormEvent) => {
     e.preventDefault();
+    try {
+      const response = await fetch(routes.login, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+      });
 
-    const user = users.find(
-      (user) => user.email === email && user.password === password
-    );
+      const data = await response.json();
 
-    if (user) {
-      if (user.rol === 'trainer') {
-        navigate(paths.trainer);
-      } else if (user.rol === 'nurse') {
-        navigate(paths.nurse);
+      if (response.ok) {
+          const { rol, email } = data;
+
+          if (rol === 'trainer') {
+              navigate(paths.trainer);
+          } else if (rol === 'nurse') {
+              navigate(paths.nurse);
+          }
+
+          localStorage.setItem('role', rol);
+          localStorage.setItem('email', email);
+          onClose();
+      } else {
+          setError(data.message || 'Email o contraseña incorrectos.');
       }
-      localStorage.setItem('role', user.rol);
-      localStorage.setItem('email', `${user.email}`);
-      onClose();
-    } else {
-      setError('Email o contraseña incorrectos.');
-    }
+  } catch (error) {
+      console.error('Error during login:', error);
+      setError('Error en el servidor. Por favor, inténtalo de nuevo más tarde.');
+  }
   };
 
   return (

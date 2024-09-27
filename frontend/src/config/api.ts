@@ -13,9 +13,8 @@ const routes = {
         pokemons: baseUrl + '/trainer/pokemons',
         create: baseUrl + '/trainer/pokemon',
         signup: baseUrl + '/trainer/signup',
-        login: baseUrl + '/trainer/login',
-
-    }
+    },
+    login: baseUrl + '/login'
 }
 
 export { baseUrl, routes };

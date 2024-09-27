@@ -1,5 +1,5 @@
 import { getConnection } from "./db.js";
-
+import bcryptjs from "bcryptjs";
 export class TrainerModel {
   static async getAllStatus() {
     const connection = await getConnection();
@@ -106,7 +106,7 @@ export class TrainerModel {
     const connection = await getConnection();
     try {
       const { name, last_name, email, password } = data;
-      const newpassword = await bcrypt.hash(password, 10);
+      const newpassword = await bcryptjs.hash(password, 10);
       const rol = "trainer";
       const query = "INSERT INTO User (name, last_name, email, password, rol) VALUES (?, ?, ?, ?, ?)";
       const [rows] = await connection.query(query, [name, last_name, email, newpassword, rol]);
@@ -129,7 +129,7 @@ export class TrainerModel {
         throw new Error("User not found");
       }
       const user = rows[0];
-      const validPassword = await bcrypt.compare(password, user.password);
+      const validPassword = await bcryptjs.compare(password, user.password);
       if (!validPassword) {
         throw new Error("Invalid password");
       }
