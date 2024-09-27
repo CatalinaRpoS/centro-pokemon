@@ -153,7 +153,7 @@ const RegisterForm = () => {
               required
             />
             <small id="passwordHelp" className="form-text text-muted">
-              Debe tener mínimo 6 letras, incluir mayúsculas, números y caracteres especiales.
+              Debe tener mínimo 6 caracteres, incluir mayúsculas, números y caracteres especiales.
             </small>
             {errors.passwordRequirements && (
               <div className="text-danger">
