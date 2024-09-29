@@ -5,16 +5,16 @@ if (!baseUrl) {
 }
 
 const routes = {
-    nurse: baseUrl + '/nurse',
+    nurse: baseUrl + 'nurse',
     trainer: {
-        types: baseUrl + '/trainer/types',
-        status: baseUrl + '/trainer/status',
-        turns: baseUrl + '/trainer/turns',
-        pokemons: baseUrl + '/trainer/pokemons',
-        create: baseUrl + '/trainer/pokemon',
-        signup: baseUrl + '/trainer/signup',
+        types: baseUrl + 'trainer/types',
+        status: baseUrl + 'trainer/status',
+        turns: baseUrl + 'trainer/turns',
+        pokemons: baseUrl + 'trainer/pokemons',
+        create: baseUrl + 'trainer/pokemon',
+        signup: baseUrl + 'trainer/signup',
     },
-    login: baseUrl + '/login'
+    login: baseUrl + 'login'
 }
 
 export { baseUrl, routes };
