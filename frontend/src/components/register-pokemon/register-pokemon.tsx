@@ -169,7 +169,7 @@ const RegisterPokemon: React.FC<RegisterPokemonProps> = ({
     <form onSubmit={handleSubmit} className="form-register-pokemon">
       <div className="mt-5 mb-4">
         <label htmlFor="pokemonName" className="form-label-pokemon">
-          Nombre Pokémon
+          Raza de tu Pokémon
         </label>
         <p>Mínimo 3 carácteres</p>
         <input
