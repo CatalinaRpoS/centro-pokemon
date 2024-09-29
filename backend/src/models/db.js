@@ -10,7 +10,7 @@ const pool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 5,
   queueLimit: 10,
-  connectTimeout: 10000
+  connectTimeout: 5000
 });
 
 export const getConnection = async () => {
