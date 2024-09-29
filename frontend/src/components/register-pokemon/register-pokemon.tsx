@@ -135,10 +135,10 @@ const RegisterPokemon: React.FC<RegisterPokemonProps> = ({
       return;
     }
 
-    if (formData.types.length > 2) {
+    if (formData.types.length < 1 || formData.types.length > 2) {
       newErrors = {
         ...newErrors,
-        type: "Solo puedes seleccionar un máximo de 2 tipos.",
+        type: "Debes seleccionar uno o dos tipos de Pokémon.",
       };
     }
 

@@ -178,7 +178,7 @@ const TableRow: React.FC = () => {
 
       <div className="button-container">
         <button
-          className="btn btn-primary btn-md justify-content-center rounded-pill"
+          className="btn btn-primary btn-md justify-content-center rounded-pill mb-4"
           type="button"
           onClick={() => removeFirstPokemon()}
         >

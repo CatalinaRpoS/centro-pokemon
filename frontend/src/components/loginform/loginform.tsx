@@ -42,7 +42,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onClose }: LoginFormProps) => {
           localStorage.setItem('email', email);
           onClose();
       } else {
-          setError(data.message || 'Email o contraseña incorrectos.');
+          setError('Correo o contraseña incorrectos.');
       }
   } catch (error) {
       console.error('Error during login:', error);

@@ -19,6 +19,8 @@ const RegisterForm = () => {
   const [errors, setErrors] = useState({
     passwordMismatch: false,
     passwordRequirements: false,
+    serverError: false,
+    formError: false
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,17 +77,23 @@ const RegisterForm = () => {
           },
           body: JSON.stringify(trainer),
         });
-        const data = await response.json();
+        await response.json();
         if (response.ok) {
           localStorage.setItem('role', 'trainer');
           localStorage.setItem('email', trainer.email);
           navigate(paths.trainer);
         } else {
-          alert(data.message);
+          setErrors((prevState) => ({
+            ...prevState,
+            formError: true,
+          }));
         }
       }
       catch (error) {
-        console.error("Error:", error);
+        setErrors((prevState) => ({
+          ...prevState,
+          serverError: true,
+        }));
       }
     }
   };
@@ -93,7 +101,7 @@ const RegisterForm = () => {
   return (
     <>
     <NavBar />
-    <div className="form">
+    <div className="form mx-4">
         <h2>Regístrate</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
@@ -180,6 +188,16 @@ const RegisterForm = () => {
               </div>
             )}
           </div>
+          {errors.serverError && (
+              <div className="text-danger">
+                Ha sucedido un error, por favor intenta de nuevo.
+              </div>
+          )}
+          {errors.formError && (
+              <div className="text-danger">
+                El correo electrónico ya está registrado.
+              </div>
+          )}
           <button type="submit" className="btn btn-primary rounded-pill mb-5">
             Registrarse
           </button>
