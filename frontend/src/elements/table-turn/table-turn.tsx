@@ -10,8 +10,9 @@ const TableTurn: React.FC<TableTurnProps> = ({ pokemones }) => {
     <table className="table table-striped mt-2 mb-5 text-center">
       <thead>
         <tr>
-          <th scope="col">Turno</th>
-          <th scope="col">Pokémon</th>
+          <th scope="col" className="col-turns">Turno</th>
+          <th scope="col" className="col-turns">Pokémon</th>
+          <th scope="col" className="col-turns">Entrenador</th>
         </tr>
       </thead>
       <tbody>
@@ -19,6 +20,7 @@ const TableTurn: React.FC<TableTurnProps> = ({ pokemones }) => {
           <tr key={pokemon.turn}>
             <th scope="row">{index+1}</th>
             <td>{pokemon.name}</td>
+            <td>{pokemon.trainer_fullname}</td>
           </tr>
       ))}
       </tbody>

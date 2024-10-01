@@ -4,8 +4,7 @@ import { PokemonController } from "../controllers/pokemon.js";
 
 export const trainerRouter = Router();
 
-trainerRouter.get("/status", TrainerController.getAllStatus);
-trainerRouter.get("/types", TrainerController.getAllTypes);
+trainerRouter.get("/form-info", TrainerController.getAllStatusTypes);
 trainerRouter.get("/turns", PokemonController.getAll);
 trainerRouter.get("/pokemons/:id", TrainerController.getPokemonsById);
 trainerRouter.post("/pokemon", PokemonController.create);

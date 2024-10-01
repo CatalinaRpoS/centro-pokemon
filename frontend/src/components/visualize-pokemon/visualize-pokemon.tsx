@@ -42,6 +42,11 @@ const VisualizePokemon: React.FC<VisualizePokemonProps> = ({ pokemones }) => {
 
   return (
     <div className="d-flex flex-column align-items-center">
+      {currentPokemones.length === 0 && (
+        <h6 className="text-center mt-5">
+          Todavía no tienes Pokémones registrados, ¡agrega uno!
+        </h6>
+      )}
       <div className="grid-container-cards">
         {currentPokemones.map((pokemon, index) => (
           <PokemonCard key={index} pokemon={pokemon} />

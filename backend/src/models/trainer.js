@@ -1,27 +1,19 @@
 import { getConnection } from "./db.js";
 import bcryptjs from "bcryptjs";
-export class TrainerModel {
-  static async getAllStatus() {
-    const connection = await getConnection();
-    try {
-      const query = "SELECT * FROM Status";
-      const [rows] = await connection.query(query);
-      return rows;
-    } catch (error) {
-      throw new Error("Failed to fetch status");
-    } finally {
-      connection.release();
-    }
-  }
 
-  static async getAllTypes() {
+export class TrainerModel {
+  static async getAllStatusTypes() {
     const connection = await getConnection();
     try {
-      const query = "SELECT * FROM Type";
-      const [rows] = await connection.query(query);
-      return rows;
+      const [statusRows] = await connection.query("SELECT * FROM Status");
+      const [typeRows] = await connection.query("SELECT * FROM Type");
+  
+      return {
+        status: statusRows,
+        types: typeRows
+      };
     } catch (error) {
-      throw new Error("Failed to fetch types");
+      throw new Error("Failed to fetch data");
     } finally {
       connection.release();
     }

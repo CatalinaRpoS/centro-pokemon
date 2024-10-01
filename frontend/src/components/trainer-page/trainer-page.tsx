@@ -18,37 +18,21 @@ const Trainer: React.FC = () => {
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
-    const fetchTypes = async () => {
+    const fetchFormInfo = async () => {
       try {
-        const response = await fetch(routes.trainer.types);
+        const response = await fetch(routes.trainer.formInfo);
         if (!response.ok) {
-          throw new Error("Failed to fetch types");
+          throw new Error("Failed to fetch data");
         }
-        const data: Type[] = await response.json();
-        setTypes(data);
+        const { status, types } = await response.json();
+        setTypes(types);
+        setStatus(status);
       } catch (error) {
         console.error("Error fetching types:", error);
       }
     };
 
-    fetchTypes();
-  }, []);
-
-  useEffect(() => {
-    const fetchStatus = async () => {
-      try {
-        const response = await fetch(routes.trainer.status);
-        if (!response.ok) {
-          throw new Error("Failed to fetch status");
-        }
-        const data: Status[] = await response.json();
-        setStatus(data);
-      } catch (error) {
-        console.error("Error fetching status:", error);
-      }
-    };
-
-    fetchStatus();
+    fetchFormInfo();
   }, []);
 
   useEffect(() => {
@@ -125,7 +109,7 @@ const Trainer: React.FC = () => {
           </div>
 
           <div className="item3">
-            <h2 className="text-center">Mis Pokémones</h2>
+            <h2 className="text-center mb-5">Mis Pokémones</h2>
             <VisualizePokemon pokemones={ownedPokemons} />
           </div>
         </div>

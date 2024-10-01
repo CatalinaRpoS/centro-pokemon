@@ -7,8 +7,7 @@ if (!baseUrl) {
 const routes = {
     nurse: baseUrl + 'nurse',
     trainer: {
-        types: baseUrl + 'trainer/types',
-        status: baseUrl + 'trainer/status',
+        formInfo: baseUrl + 'trainer/form-info',
         turns: baseUrl + 'trainer/turns',
         pokemons: baseUrl + 'trainer/pokemons',
         create: baseUrl + 'trainer/pokemon',

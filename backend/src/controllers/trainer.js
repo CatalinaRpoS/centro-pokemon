@@ -1,19 +1,10 @@
 import { TrainerModel } from "../models/trainer.js";
 
 export class TrainerController {
-  static async getAllStatus(req, res) {
+  static async getAllStatusTypes(req, res) {
     try {
-      const status = await TrainerModel.getAllStatus();
-      if (status) res.json(status);
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  }
-
-  static async getAllTypes(req, res) {
-    try {
-      const types = await TrainerModel.getAllTypes();
-      if (types) res.json(types);
+      const { status, types } = await TrainerModel.getAllStatusTypes();
+      if (status && types) return res.json({ status, types });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

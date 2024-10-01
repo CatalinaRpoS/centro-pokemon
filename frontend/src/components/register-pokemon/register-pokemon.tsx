@@ -154,7 +154,7 @@ const RegisterPokemon: React.FC<RegisterPokemonProps> = ({
 
     const newPokemon = {
       trainer_email: email || "",
-      name: formData.name,
+      name: formData.name.charAt(0).toUpperCase() + formData.name.slice(1).toLowerCase(),
       life_points: Number(formData.life_points),
       level: Number(formData.level),
       first_type: formData.types[0],
