@@ -6,12 +6,7 @@
 
 ## Instrucciones para ingresar al Centro Pokémon
 
-Si quieres conocer el Centro Pokémon, debes seguir los siguientes pasos:
-
-* Clona este repositorio en tu máquina local y accede a él desde una terminal.
-* Una vez te encuentres en la ruta raíz, viaja a la carpeta que contiene el proyecto con el comando `cd frontend`.
-* Instala las dependencias necesarias para su adecuado funcionamiento con el comando `npm install`. Recuerda, que para este paso debes tener instalado Node.js en tu computador.
-* Ejecuta el proyecto con el comando `npm run dev`, ¡ahora puedes entrar al Centro Pokémon desde un puerto de tu servidor local!
+Si quieres conocer el Centro Pokémon y utilizar sus servicios, puedes visitarnos a través del siguiente enlace: [Centro Pokémon](https://healmypokemons.vercel.app/)
 
 ## Equipo de desarrollo
 
